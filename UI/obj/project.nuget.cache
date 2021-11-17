@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bRG8q306zNN0pdA2SjoPHqSGMT/t6TkDp0wJSYlITifbCyK8Yz3wtXVrIHrdHmPnv66mWqjeHLvpqJur6s/ekg==",
+  "success": true,
+  "projectFilePath": "D:\\Archives\\Prog\\Chest\\UI\\UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Arthu\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

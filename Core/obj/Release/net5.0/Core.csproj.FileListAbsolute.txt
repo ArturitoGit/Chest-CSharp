@@ -1,0 +1,17 @@
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.exe
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.deps.json
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.runtimeconfig.json
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.runtimeconfig.dev.json
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.dll
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\ref\Core.dll
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\Core.pdb
+D:\Archives\Prog\Chest\Core\bin\Release\net5.0\BCrypt.Net-Next.dll
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.csproj.AssemblyReference.cache
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.AssemblyInfoInputs.cache
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.AssemblyInfo.cs
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.csproj.CoreCompileInputs.cache
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.dll
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\ref\Core.dll
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.pdb
+D:\Archives\Prog\Chest\Core\obj\Release\net5.0\Core.genruntimeconfig.cache
