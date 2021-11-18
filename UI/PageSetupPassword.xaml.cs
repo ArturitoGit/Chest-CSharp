@@ -61,15 +61,18 @@ namespace UI
                 new SetPassword.Request(TextBoxOldPassword.Password, TextBoxNewPassword1.Password) ;
             var result = await ServiceCollection.Handle(request) ;
 
-            // Try to open the chest
-            var resultLogin = await ServiceCollection.Handle(new OpenChestSession.Request(TextBoxNewPassword1.Password));
-
-            if (result.Success) _parent.GoFromSetupToLogin() ;
-            else 
+            // If the wrong password is not valid
+            if (!result.Success) 
             {
                 LabelError.Content = "Wrong old password" ;
                 LabelError.Visibility = Visibility.Visible ;
+                return ;
             }
+
+            // Try to open the chest and redirect
+            var resultLogin = await ServiceCollection.Handle(new OpenChestSession.Request(TextBoxNewPassword1.Password));
+            if (resultLogin.Success) _parent.GoFromSetupToMenu() ;
+            else _parent.GoFromSetupToLogin() ;
         }
 
         private void OnCancel(object sender, RoutedEventArgs e)

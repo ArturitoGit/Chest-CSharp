@@ -41,10 +41,11 @@ namespace Core.Domain.Accounts
         {
             var accounts = await GetAccounts();
             await DeleteAllAccounts();
-            accounts
+            var tasks = accounts
                 .Where(a => a.Id != id)
-                .ToList()
-                .ForEach(async a => await AddAccount(a));
+                .Select(a => AddAccount(a));
+
+            await Task.WhenAll(tasks) ;
         }
 
         public async Task<ChestAccount[]> GetAccounts()
@@ -72,21 +73,25 @@ namespace Core.Domain.Accounts
             return accounts.ToArray();
         }
 
-        public async Task UpdateAccount(ChestAccount account)
+        public async Task UpdateAccount (ChestAccount account)
         {
             var accounts = await GetAccounts();
             await DeleteAllAccounts();
-            accounts
-                .ToList()
-                .ForEach(async a =>
-                {
-                    await AddAccount(a.Id != account.Id ? a : account);
-                });
+            var tasks = accounts.Select(a => AddAccount(a.Id != account.Id ? a : account)) ;
+            await Task.WhenAll(tasks) ;
         }
 
         public void Dispose()
         {
             if (File.Exists(_accountsFile)) File.Delete(_accountsFile);
+        }
+
+        public async Task ApplyToAllAccounts(Func<ChestAccount, ChestAccount> task)
+        {
+            var accounts = await GetAccounts() ;
+            await DeleteAllAccounts() ;
+            var tasks = accounts.Select(a => AddAccount(task(a))) ;
+            await Task.WhenAll(tasks) ;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Chest.Core;
 using Chest.Core.DependencyInjection;
@@ -24,43 +26,36 @@ namespace Core
     {
         public static void Main (string[] args)
         {   
-            RegisterServices() ;
-
-            var cryptoAgent = ServiceCollection.GetInstance().GetScope<ICryptoAgent>() ;
-            //Console.WriteLine(cryptoAgent.Decrypt(null,null,null,null)) ;
+            OpenUrlInBrowser(null!) ;
         }
 
-        public static void RegisterServices ()
+        public static void OpenUrlInBrowser (string url)
         {
-            ServiceCollection.GetInstance().RegisterScope<ICryptoAgent, FakeCryptoAgent>();
-        }
-    }
-
-    class FakeCryptoAgent : ICryptoAgent
-    {
-        public bool CheckHash(string input, string hash)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Decrypt(byte[] cipher, byte[] IV, string password, byte[] salt)
-        {
-            return "Hello world" ;
-        }
-
-        public (byte[] Cipher, byte[] IV) Encrypt(string plain, string password, byte[] salt)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte[] GenerateSalt()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetHash(string input)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                // hack because of this: https://github.com/dotnet/corefx/issues/10361
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }

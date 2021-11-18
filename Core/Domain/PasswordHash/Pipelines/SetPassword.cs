@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Chest.Core.DependencyInjection;
+using Core.Domain.Accounts;
 using Core.Domain.Accounts.Services;
 using Core.Domain.Crypto.Services;
 using Core.Domain.PasswordHash;
@@ -68,20 +69,30 @@ namespace Core.Domain.PasswordHash.Pipelines
                 // Update the password for all the account encryptions
                 var accounts = await _accountProvider.GetAccounts() ;
 
-                var tasks = accounts.Select(a => 
+/*                 var tasks = accounts.Select(a => 
                 {
                     // Get the clear password from the request old key
                     var clearPassword = _cryptoAgent.Decrypt(a.HashedPassword, a.IV, request.OldPassword, a.Salt);
                     // Re-encrypt the clear password with the new key
                     var (newPassword, iv) = _cryptoAgent.Encrypt(clearPassword, request.NewPassword, a.Salt);
-                    // Update the account fields
                     a.IV = iv;
                     a.HashedPassword = newPassword;
                     // Update the account in the database
                     return _accountProvider.UpdateAccount(a);
                 }) ;
                 // Apply this task async to all elements of the list
-                await Task.WhenAll(tasks) ;
+                await Task.WhenAll(tasks) ; */
+
+                await _accountProvider.ApplyToAllAccounts( a => 
+                {
+                    // Get the clear password from the request old key
+                    var clearPassword = _cryptoAgent.Decrypt(a.HashedPassword, a.IV, request.OldPassword, a.Salt);
+                    // Re-encrypt the clear password with the new key
+                    var (newPassword, iv) = _cryptoAgent.Encrypt(clearPassword, request.NewPassword, a.Salt);
+                    a.IV = iv;
+                    a.HashedPassword = newPassword;
+                    return a ; 
+                });
 
                 return new Result(true);
             }

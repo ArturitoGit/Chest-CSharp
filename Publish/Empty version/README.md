@@ -1,4 +1,4 @@
-# Publish - How to use install the application
+# Publish - How to install the application
 
 ## Prerequisites
 

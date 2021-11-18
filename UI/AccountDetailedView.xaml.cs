@@ -41,7 +41,9 @@ namespace UI
             // Update the fields
             LabelName.Content = _account.Name ;
             LabelPassword.Content = result.ClearPassword ;
+
             if (_account.Link is not null) LabelAddress.Content = GetShortVersionOf(_account.Link, 30) ;
+            else ButtonAddress.IsEnabled = false ;
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e)
@@ -57,8 +59,7 @@ namespace UI
 
         private void OnAddressCopy(object sender, RoutedEventArgs e)
         {
-            // Open the address in a browser
-            OpenBrowser.OpenUrlInBrowser(_account.Link) ;
+            if (_account.Link is not null) OpenBrowser.OpenUrlInBrowser(_account.Link) ;
         }
 
         private void OnPasswordCopy(object sender, RoutedEventArgs e)
@@ -70,7 +71,6 @@ namespace UI
         private void SetButtonCopied (Button button)
         {
             ButtonName.Content = "Copy" ;
-            ButtonAddress.Content = "Copy" ;
             ButtonPassword.Content = "Copy" ;
             button.Content = "Copied" ;
         }

@@ -18,7 +18,7 @@
                 </Grid>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,0,0,10" Visibility="Visible">
                     <Label x:Name="LabelLabelAddress" Content="Link :" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label x:Name="LabelAddress" Content="labanquepostale.fr" FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label x:Name="LabelAddress" Content=". . ." FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Button x:Name="ButtonAddress" Content="Open" FontSize="15" Width="70" Margin="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OnAddressCopy"/>
                 </Grid>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500">

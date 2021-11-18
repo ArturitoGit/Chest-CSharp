@@ -15,5 +15,7 @@ namespace Core.Domain.Accounts.Services
         Task UpdateAccount(ChestAccount account);
 
         Task DeleteAllAccounts();
+
+        Task ApplyToAllAccounts(Func<ChestAccount, ChestAccount> task) ;
     }
 }

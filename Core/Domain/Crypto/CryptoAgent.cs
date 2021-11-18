@@ -69,8 +69,6 @@ namespace Core.Domain.Crypto
             }
         }
 
-        //public string GetHash(string input) => System.Web.Helpers.Crypto.SHA256(input) ;
-        //public string GetHash (string input) => "Hash" ;
         public string GetHash(string input) => BCrypt.Net.BCrypt.HashPassword(input);
 
         public bool CheckHash(string input, string hash) => BCrypt.Net.BCrypt.Verify(input, hash);

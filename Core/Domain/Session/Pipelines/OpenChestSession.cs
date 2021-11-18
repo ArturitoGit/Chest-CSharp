@@ -35,12 +35,17 @@ namespace Core.Domain.Session.Pipelines
             {
                 // Check if the given password is correct
                 var validPassword = await _passwordChecker.IsPasswordCorrect(request.Password) ;
+                var session = _sessionProvider.GetSession() ;
 
                 // If the password is not valid
-                if (!validPassword) return new Result (Success : false) ;
+                if (!validPassword) 
+                {
+                    session.IsOpen = false ;
+                    session.Password = null ;
+                    return new Result (Success : false) ;
+                }
 
                 // Open the session and save the password inside
-                var session = _sessionProvider.GetSession() ;
                 session.IsOpen = true ;
                 session.Password = request.Password ;
                 return new Result(Success : true) ;

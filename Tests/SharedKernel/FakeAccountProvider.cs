@@ -47,6 +47,12 @@ namespace Tests.SharedKernel
             return Task.CompletedTask ; 
         }
 
+        public Task ApplyToAllAccounts(Func<ChestAccount, ChestAccount> task)
+        {
+            _accounts.ForEach(a => a = task(a)) ;
+            return Task.CompletedTask ;
+        }
+
         public static FakeAccountProvider INSTANCE = new FakeAccountProvider() ;
     }
 }
