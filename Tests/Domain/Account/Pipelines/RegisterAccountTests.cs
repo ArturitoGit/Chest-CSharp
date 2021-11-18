@@ -36,7 +36,8 @@ namespace Tests.Domain.Account.Pipelines
             // Build the request
             var name = "name of the account";
             var accountClearPassword = "Clear password for my account ... !";
-            var request = new RegisterAccount.Request(name, accountClearPassword);
+            var link = "link" ;
+            var request = new RegisterAccount.Request(name, accountClearPassword, link);
 
             // Call the handler
             var result = _handler.Handle(request).GetAwaiter().GetResult();
@@ -53,12 +54,36 @@ namespace Tests.Domain.Account.Pipelines
         }
 
         [Fact]
+        public void RegisterAccount_AddsTheLink ()
+        {
+            // Build the request
+            var name = "name of the account";
+            var accountClearPassword = "Clear password for my account ... !";
+            var link = "link" ;
+            var request = new RegisterAccount.Request(name, accountClearPassword, link);
+
+            // Call the handler
+            var result = _handler.Handle(request).GetAwaiter().GetResult();
+            result.Success.ShouldBeTrue();
+
+            // Check that the account provider has the account
+            var stored = _accountProvider.GetAccounts().GetAwaiter().GetResult();
+            stored.Length.ShouldBe(1);
+
+            var storedAccount = stored[0];
+            storedAccount.Link.ShouldBe(link);
+
+            Dispose();
+        }
+
+        [Fact]
         public void RegisterAccount_AddsADecryptableAccount()
         {
             // Build the request
             var name = "name of the account";
             var accountClearPassword = "Clear password for my account ... !";
-            var request = new RegisterAccount.Request(name, accountClearPassword);
+            var link = "link" ;
+            var request = new RegisterAccount.Request(name, accountClearPassword, link);
 
             // Call the handler
             var result = _handler.Handle(request).GetAwaiter().GetResult();
@@ -83,12 +108,13 @@ namespace Tests.Domain.Account.Pipelines
             // Build the requests
             var name = "valid name";
             var accountClearPassword = "Clear password for my account ... !";
+            var link = "link" ;
 
-            var request_1 = new RegisterAccount.Request("", accountClearPassword);
-            var request_2 = new RegisterAccount.Request(null, accountClearPassword);
+            var request_1 = new RegisterAccount.Request("", accountClearPassword,link);
+            var request_2 = new RegisterAccount.Request(null, accountClearPassword,link);
 
-            var request_3 = new RegisterAccount.Request(name, "");
-            var request_4 = new RegisterAccount.Request(name, null);
+            var request_3 = new RegisterAccount.Request(name, "",link);
+            var request_4 = new RegisterAccount.Request(name, null,link);
 
             // Call the handler
             var result_1 = _handler.Handle(request_1).GetAwaiter().GetResult();
