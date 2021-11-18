@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Chest.Core.DependencyInjection;
@@ -19,15 +21,15 @@ namespace Core.Domain.Accounts.Pipelines
         {
             private readonly IAccountProvider _accountProvider;
             private readonly IChestSessionProvider _sessionProvider;
-            private readonly IValidator<RegisterAccount.Request>[] _requestValidators;
-            private readonly IValidator<ChestAccount>[] _accountValidators;
+            private readonly ICollection<IValidator<RegisterAccount.Request>> _requestValidators;
+            private readonly ICollection<IValidator<ChestAccount>> _accountValidators;
             private readonly ICryptoAgent _cryptoAgent;
 
             public Handler(
                 IAccountProvider accountProvider,
                 IChestSessionProvider sessionProvider,
-                IValidator<RegisterAccount.Request>[] requestValidators,
-                IValidator<ChestAccount>[] accountValidators,
+                ICollection<IValidator<RegisterAccount.Request>> requestValidators,
+                ICollection<IValidator<ChestAccount>> accountValidators,
                 ICryptoAgent cryptoAgent)
             {
                 _accountProvider = accountProvider ?? throw new ArgumentNullException(nameof(accountProvider));
