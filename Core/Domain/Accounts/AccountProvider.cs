@@ -11,7 +11,7 @@ namespace Core.Domain.Accounts
     public class AccountProvider : IAccountProvider
     {
 
-        private const string DEAULT_ACCOUNTS_FILE_PATH = "accounts.txt";
+        private static string DEAULT_ACCOUNTS_FILE_PATH = Path.Combine(Environment.CurrentDirectory, "accounts.json" );
 
         private string _accountsFile = DEAULT_ACCOUNTS_FILE_PATH;
         public AccountProvider() { }

@@ -38,9 +38,6 @@ namespace UI
             ServiceCollection.GetInstance().RegisterScope<IChestSessionProvider, ChestSessionProvider>();
             ServiceCollection.GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
 
-            // Delete all the accounts
-            ServiceCollection.GetInstance().GetScope<IAccountProvider>().DeleteAllAccounts().GetAwaiter().GetResult();
-
             // Reset the password
             // ServiceCollection.Handle(new ResetPassword.Request()).GetAwaiter().GetResult();
 

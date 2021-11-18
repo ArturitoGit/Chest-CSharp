@@ -9,7 +9,7 @@ namespace Core.Domain.PasswordHash
     public class PasswordHashProvider : IPasswordHashProvider
     {
 
-        private const string DEAULT_PASSWORD_FILE_PATH = "password.txt";
+        private static string DEAULT_PASSWORD_FILE_PATH = Path.Combine(Environment.CurrentDirectory , "passwords.json" );
         private string _passwordFile = DEAULT_PASSWORD_FILE_PATH;
 
         public PasswordHashProvider() { }
