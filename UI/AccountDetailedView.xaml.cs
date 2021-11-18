@@ -4,6 +4,7 @@ using Core.Domain.PasswordHash.Pipelines;
 using Core.Domain.Session;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace UI
             // Update the fields
             LabelName.Content = _account.Name ;
             LabelPassword.Content = result.ClearPassword ;
+            if (_account.Link is not null) LabelAddress.Content = GetShortVersionOf(_account.Link, 30) ;
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e)
@@ -55,8 +57,8 @@ namespace UI
 
         private void OnAddressCopy(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText((string) LabelAddress.Content) ;
-            SetButtonCopied(ButtonAddress) ;
+            // Open the address in a browser
+            OpenBrowser.OpenUrlInBrowser(_account.Link) ;
         }
 
         private void OnPasswordCopy(object sender, RoutedEventArgs e)
@@ -72,5 +74,9 @@ namespace UI
             ButtonPassword.Content = "Copy" ;
             button.Content = "Copied" ;
         }
+
+        // Restrict the size of a string to max_size, by replacing the end with " ..." if necessary
+        private string GetShortVersionOf(string content, int max_size)
+            => (content.Length > max_size) ? (content.Substring(0,max_size-3) + " ...") : content ;
     }
 }

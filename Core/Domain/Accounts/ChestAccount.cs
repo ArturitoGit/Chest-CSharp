@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 using Chest.Core.Infrastructure;
 
 namespace Core.Domain.Accounts
@@ -8,12 +9,13 @@ namespace Core.Domain.Accounts
         public Guid Id { get; set; }
         public byte[] HashedPassword { get; set; } = null!;
         public string Name { get; set; } = null!;
-
         public byte[] Salt { get; set; } = null!;
-
         public byte[] IV { get; set; } = null!;
+        public string? Link { get; set; }
 
-        private ChestAccount() { }
+        // Necessary for the deserialization with json
+        public ChestAccount() {}
+
         public ChestAccount(byte[] hashedPassword, string name, byte[] salt, byte[] iv)
         {
             Id = Guid.NewGuid();
@@ -21,6 +23,12 @@ namespace Core.Domain.Accounts
             Name = name;
             Salt = salt;
             IV = iv;
+        }
+
+        public ChestAccount(byte[] hashedPassword, string name, byte[] salt, byte[] iv, string link)
+            : this (hashedPassword,name,salt,iv) 
+        {
+            Link = link ;
         }
     }
 

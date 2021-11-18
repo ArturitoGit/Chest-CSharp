@@ -11,7 +11,10 @@ namespace Core.Domain.Accounts.Pipelines
 {
     public class RegisterAccount
     {
-        public record Request(string Name, string AccountClearPassword) : IRequest<Result> { }
+        public record Request(
+            string Name,
+            string AccountClearPassword,
+            string Link) : IRequest<Result> { }
         public record Result(bool Success, string[] Errors) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
@@ -63,7 +66,8 @@ namespace Core.Domain.Accounts.Pipelines
                     encrypted_password,
                     request.Name,
                     salt,
-                    iv
+                    iv,
+                    request.Link
                 );
 
                 // Use the validators
