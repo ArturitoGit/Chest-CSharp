@@ -86,11 +86,6 @@ namespace UI
             update();
         }
 
-        public void RegisterPassword()
-        {
-            ServiceCollection.Handle(new RegisterAccount.Request("", Password));
-        }
-
         private void update()
         {
             // Update the displayed password

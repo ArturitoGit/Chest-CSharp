@@ -16,8 +16,8 @@
                     <Label x:Name="LabelName" Content="Name : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
                     <TextBox x:Name="TextBoxName" TextWrapping="Wrap" Width="210" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15" Visibility="Collapsed">
-                    <Label x:Name="LabelLink" Content="Address : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15" Visibility="Visible">
+                    <Label x:Name="LabelLink" Content="Link : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
                     <TextBox x:Name="TextBoxLink" TextWrapping="Wrap" Width="210" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

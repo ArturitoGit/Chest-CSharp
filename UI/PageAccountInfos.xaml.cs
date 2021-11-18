@@ -44,6 +44,7 @@ namespace UI
             // Update the fields of the form
             TextBoxName.Text = account.Name ;
             TextBoxPassword.Text = result.ClearPassword ;
+            TextBoxLink.Text = account.Link ?? "" ;
             _accountId = account.Id ;
         }
 
@@ -82,7 +83,8 @@ namespace UI
                 // Create request
                 var request = new RegisterAccount.Request (
                     TextBoxName.Text,
-                    password
+                    password,
+                    TextBoxLink.Text
                 ) ;
 
                 // Handle the request
@@ -111,7 +113,8 @@ namespace UI
                 var request = new UpdateAccount.Request (
                     _accountId.Value,
                     TextBoxName.Text,
-                    password
+                    password,
+                    TextBoxLink.Text
                 ) ;
 
                 // Handle the request
