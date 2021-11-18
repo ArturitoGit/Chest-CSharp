@@ -4,3 +4,5 @@ Core/bin
 Core/obj
 UI/bin
 UI/obj
+Tests/bin
+Tests/obj
