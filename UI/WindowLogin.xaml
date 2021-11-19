@@ -10,11 +10,11 @@
         <StackPanel x:Name="Root" HorizontalAlignment="Center" Margin="0,0,0,0" Orientation="Vertical" VerticalAlignment="Center">
             <Label Content="Account Chest" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
             <Label x:Name="LabelError" Content="Wrong password ..." Foreground="Red" HorizontalAlignment="Center" FontSize="15" Margin="0,5,0,5" Visibility="Hidden"/>
-            <StackPanel x:Name="StackPanelPassword" Orientation="Horizontal" Margin="0,0,0,30">
+            <StackPanel x:Name="StackPanelPassword" Orientation="Horizontal" Margin="0,0,0,15">
                 <Label x:Name="LabelPassword" Content="Unique Password :" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="15"/>
-                <PasswordBox x:Name="TextBoxPassword" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" InputScope="Password" VerticalContentAlignment="Center" KeyDown="OnKeyDown"/>
+                <PasswordBox x:Name="TextBoxPassword" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" InputScope="Password" VerticalContentAlignment="Center" KeyDown="OnKeyDown" IsInactiveSelectionHighlightEnabled="True"/>
             </StackPanel>
-            <Button x:Name="ButtonSubmit" Content="Open chest" HorizontalAlignment="Center" FontSize="15" Margin="0,0,-3,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="90"/>
+            <Button x:Name="ButtonSubmit" Content="OK" HorizontalAlignment="Center" FontSize="15" Margin="0,0,0,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="60"/>
         </StackPanel>
     </Grid>
 </Window>
