@@ -6,3 +6,5 @@ UI/bin
 UI/obj
 Tests/bin
 Tests/obj
+UIElectron/bin
+UIElectron/obj
