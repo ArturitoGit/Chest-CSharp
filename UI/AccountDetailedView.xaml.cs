@@ -42,8 +42,13 @@ namespace UI
             LabelName.Content = _account.Name ;
             LabelPassword.Content = result.ClearPassword ;
 
-            if (_account.Link is not null) LabelAddress.Content = GetShortVersionOf(_account.Link, 30) ;
-            else ButtonAddress.IsEnabled = false ;
+            // Link field is collapsed if there is no link
+            if (string.IsNullOrEmpty(_account.Link)) GridAddress.Visibility = Visibility.Collapsed;
+            else LabelAddress.Content = GetShortVersionOf(_account.Link, 30);
+
+            // User field is collapsed if there is no link
+            if (string.IsNullOrEmpty(_account.Username)) GridUser.Visibility = Visibility.Collapsed;
+            else LabelUser.Content = _account.Username;
         }
 
         private void OnBackClick(object sender, RoutedEventArgs e)
@@ -68,15 +73,22 @@ namespace UI
             SetButtonCopied(ButtonPassword) ;
         }
 
-        private void SetButtonCopied (Button button)
-        {
-            ButtonName.Content = "Copy" ;
-            ButtonPassword.Content = "Copy" ;
-            button.Content = "Copied" ;
-        }
-
         // Restrict the size of a string to max_size, by replacing the end with " ..." if necessary
         private string GetShortVersionOf(string content, int max_size)
             => (content.Length > max_size) ? (content.Substring(0,max_size-3) + " ...") : content ;
+
+        private void OnUserCopy(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText((string) this.LabelUser.Content );
+            SetButtonCopied(ButtonUser);
+        }
+
+        private void SetButtonCopied(Button button)
+        {
+            ButtonName.Content = "Copy";
+            ButtonPassword.Content = "Copy";
+            ButtonUser.Content = "Copy";
+            button.Content = "Copied";
+        }
     }
 }
