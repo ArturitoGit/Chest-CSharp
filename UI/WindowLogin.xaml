@@ -14,7 +14,7 @@
                 <Label x:Name="LabelPassword" Content="Unique Password :" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="15"/>
                 <PasswordBox x:Name="TextBoxPassword" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" InputScope="Password" VerticalContentAlignment="Center" KeyDown="OnKeyDown"/>
             </StackPanel>
-            <Button x:Name="ButtonSubmit" Content="Open chest" HorizontalAlignment="Center" FontSize="15" Margin="0,0,-3,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="90"/>
+            <Button x:Name="ButtonSubmit" Content="Open" HorizontalAlignment="Center" FontSize="15" Margin="0,0,-3,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="90"/>
         </StackPanel>
     </Grid>
 </Window>
