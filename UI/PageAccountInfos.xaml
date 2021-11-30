@@ -26,7 +26,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="LabelPassword" Content="Password : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
-                    <TextBox x:Name="TextBoxPassword" TextWrapping="Wrap" Width="160" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" IsEnabled="False" Margin="0,0,10,0"/>
+                    <TextBox x:Name="TextBoxPassword" TextWrapping="Wrap" Width="160" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Margin="0,0,10,0"/>
                     <Button x:Name="ButtonEdit" Content="Edit" VerticalAlignment="Center" FontSize="15" Click="OnEdit" Width="40"/>
                 </StackPanel>
             </StackPanel>

@@ -81,6 +81,7 @@ namespace UI
 
                 // Pick up the password content
                 var password = TextBoxPassword.Text ;
+
                 // Create request
                 var request = new RegisterAccount.Request (
                     TextBoxName.Text,
@@ -111,6 +112,7 @@ namespace UI
 
                 // Pick up the password content
                 var password = TextBoxPassword.Text ;
+
                 // Create request
                 var request = new UpdateAccount.Request (
                     _accountId.Value,

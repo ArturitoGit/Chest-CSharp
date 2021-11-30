@@ -23,3 +23,14 @@
 
 * Date : 2021, November 29th
 * Author : Arthur Brouart
+
+## Version 1.3
+
+### New functionnalities
+
+* It is now possible to write manually a password, instead of adding it by random generation.
+
+### Details
+
+* Date : 2021, November 30th
+* Author : Arthur Brouart

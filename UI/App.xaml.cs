@@ -16,6 +16,7 @@ using Core.Domain.Session;
 using Core.Domain.Session.Services;
 using Core.Domain.PasswordHash.Pipelines;
 using Core.Domain.PasswordHash;
+using System.Windows.Input;
 
 namespace UI
 {
