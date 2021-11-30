@@ -6,7 +6,7 @@
 
 ## Steps
 
-* Download the [Application compressed file](./Chest-1.1.zip)
+* Download the [Application compressed file](./Chest-1.3.zip)
 * Unzip it in a folder of your choice
 * Use the file **UI.exe** to launch the application
 
