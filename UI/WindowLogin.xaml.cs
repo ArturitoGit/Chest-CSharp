@@ -16,6 +16,7 @@ namespace UI
     /// </summary>
     public partial class WindowLogin : Window
     {
+
         private App _parent;
         public WindowLogin(App parent)
         {

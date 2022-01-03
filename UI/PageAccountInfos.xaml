@@ -20,9 +20,13 @@
                     <Label x:Name="LabelLink" Content="Link : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
                     <TextBox x:Name="TextBoxLink" TextWrapping="Wrap" Width="210" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15" Visibility="Visible">
+                    <Label x:Name="LabelLabelUser" Content="Username :" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
+                    <TextBox x:Name="TextBoxUser" TextWrapping="Wrap" Width="210" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="LabelPassword" Content="Password : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="15" FontWeight="Bold" Width="100"/>
-                    <TextBox x:Name="TextBoxPassword" TextWrapping="Wrap" Width="160" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" IsEnabled="False" Margin="0,0,10,0"/>
+                    <TextBox x:Name="TextBoxPassword" TextWrapping="Wrap" Width="160" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Margin="0,0,10,0"/>
                     <Button x:Name="ButtonEdit" Content="Edit" VerticalAlignment="Center" FontSize="15" Click="OnEdit" Width="40"/>
                 </StackPanel>
             </StackPanel>

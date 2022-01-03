@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
         Title="WindowLogin" Height="300" Width="500">
+
     <Grid>
         <StackPanel x:Name="Root" HorizontalAlignment="Center" Margin="0,0,0,0" Orientation="Vertical" VerticalAlignment="Center">
             <Label Content="Account Chest" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" FontSize="25" FontWeight="Bold"/>
@@ -14,7 +15,7 @@
                 <Label x:Name="LabelPassword" Content="Unique Password :" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="15"/>
                 <PasswordBox x:Name="TextBoxPassword" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" InputScope="Password" VerticalContentAlignment="Center" KeyDown="OnKeyDown"/>
             </StackPanel>
-            <Button x:Name="ButtonSubmit" Content="Open chest" HorizontalAlignment="Center" FontSize="15" Margin="0,0,-3,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="90"/>
+            <Button x:Name="ButtonSubmit" Content="Open" HorizontalAlignment="Center" FontSize="15" Margin="0,0,-3,0" BorderThickness="1,1,1,1" Click="Button_Click" Width="90"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -18,7 +18,8 @@ namespace Core.Domain.Accounts.Pipelines
             Guid Id,
             string Name,
             string AccountClearPassword,
-            string Link) : IRequest<Result> { }
+            string? Link,
+            string? Username) : IRequest<Result> { }
         public record Result(bool Success, string[] Errors) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
@@ -49,7 +50,8 @@ namespace Core.Domain.Accounts.Pipelines
                 var newAccountRequest = new RegisterAccount.Request(
                     request.Name,
                     request.AccountClearPassword,
-                    request.Link
+                    request.Link,
+                    request.Username
                 );
                 var (isRequestValid, requestErrors) = Validator.Validate(_requestValidators, newAccountRequest);
                 if (!isRequestValid) return new Result(false, requestErrors);
@@ -79,6 +81,7 @@ namespace Core.Domain.Accounts.Pipelines
                 account.IV = iv;
                 account.Salt = salt;
                 account.Link = request.Link ;
+                account.Username = request.Username ;
 
                 // Use the accountvalidators
                 var validatorsResult = Validator.Validate<ChestAccount>(_accountValidators, account);

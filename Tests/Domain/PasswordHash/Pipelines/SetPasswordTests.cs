@@ -129,12 +129,12 @@ namespace Tests.Domain.Session.Pipelines
             var password1 = "password of account 1" ;
             var name1 = "name_1" ;
             var resultAddAccount1 = addAccountHandler.Handle(new RegisterAccount.Request(
-                name1, password1, "link of account 1"
+                name1, password1, "link of account 1", "note"
             )).GetAwaiter().GetResult() ;
             var name2 = "name_2" ;
             var password2 = "second password for a second account" ;
             var resultAddAccount2 = addAccountHandler.Handle(new RegisterAccount.Request(
-                name2, password2, "link of account 2"
+                name2, password2, "link of account 2", "note"
             )).GetAwaiter().GetResult() ;
 
             // Change the password

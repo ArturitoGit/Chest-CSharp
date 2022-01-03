@@ -84,6 +84,10 @@ namespace UI
             // Display the result
             Password = result.Password;
             update();
+
+            // Update the copy button
+            ButtonCopy.IsEnabled = true;
+            ButtonCopy.Content = "Copy";
         }
 
         private void update()
@@ -107,5 +111,12 @@ namespace UI
         private void OnSubmit(object sender, RoutedEventArgs e) => _parent.ReturnPassword(Password) ;
 
         private void OnCancel(object sender, RoutedEventArgs e)=> _parent.Return() ;
+
+        private void ButtonCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(Password);
+            ButtonCopy.Content = "Copied";
+            ButtonCopy.IsEnabled = false;
+        }
     }
 }

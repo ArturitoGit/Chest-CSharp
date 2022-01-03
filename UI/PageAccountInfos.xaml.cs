@@ -45,6 +45,7 @@ namespace UI
             TextBoxName.Text = account.Name ;
             TextBoxPassword.Text = result.ClearPassword ;
             TextBoxLink.Text = account.Link ?? "" ;
+            TextBoxUser.Text = account.Username ?? "" ;
             _accountId = account.Id ;
         }
 
@@ -80,11 +81,13 @@ namespace UI
 
                 // Pick up the password content
                 var password = TextBoxPassword.Text ;
+
                 // Create request
                 var request = new RegisterAccount.Request (
                     TextBoxName.Text,
                     password,
-                    TextBoxLink.Text
+                    TextBoxLink.Text,
+                    TextBoxUser.Text
                 ) ;
 
                 // Handle the request
@@ -109,12 +112,14 @@ namespace UI
 
                 // Pick up the password content
                 var password = TextBoxPassword.Text ;
+
                 // Create request
                 var request = new UpdateAccount.Request (
                     _accountId.Value,
                     TextBoxName.Text,
                     password,
-                    TextBoxLink.Text
+                    TextBoxLink.Text,
+                    TextBoxUser.Text
                 ) ;
 
                 // Handle the request

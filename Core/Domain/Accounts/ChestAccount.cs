@@ -12,6 +12,7 @@ namespace Core.Domain.Accounts
         public byte[] Salt { get; set; } = null!;
         public byte[] IV { get; set; } = null!;
         public string? Link { get; set; }
+        public string? Username { get; set; }
 
         // Necessary for the deserialization with json
         public ChestAccount() {}
@@ -25,11 +26,13 @@ namespace Core.Domain.Accounts
             IV = iv;
         }
 
-        public ChestAccount(byte[] hashedPassword, string name, byte[] salt, byte[] iv, string link)
+        public ChestAccount(byte[] hashedPassword, string name, byte[] salt, byte[] iv, string? link, string? note)
             : this (hashedPassword,name,salt,iv) 
         {
             Link = link ;
+            Username = note ;
         }
+
     }
 
     public class AccountNameNotNull : IValidator<ChestAccount>

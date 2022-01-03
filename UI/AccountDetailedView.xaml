@@ -16,10 +16,15 @@
                     <Label x:Name="LabelName" Content="La banque postale" FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Button x:Name="ButtonName" Content="Copy" FontSize="15" Width="70" Margin="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OnNameCopy"/>
                 </Grid>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,0,0,10" Visibility="Visible">
+                <Grid x:Name="GridAddress" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,0,0,10" Visibility="Visible">
                     <Label x:Name="LabelLabelAddress" Content="Link :" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Label x:Name="LabelAddress" Content=". . ." FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Button x:Name="ButtonAddress" Content="Open" FontSize="15" Width="70" Margin="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OnAddressCopy"/>
+                </Grid>
+                <Grid x:Name="GridUser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,0,0,10" Visibility="Visible">
+                    <Label x:Name="LabelLabeluser" Content="Username :" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="LabelUser" Content=". . ." FontSize="15" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonUser" Content="Copy" FontSize="15" Width="70" Margin="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OnUserCopy"/>
                 </Grid>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500">
                     <Label x:Name="LabelLabelPassword" Content="Password : " FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>

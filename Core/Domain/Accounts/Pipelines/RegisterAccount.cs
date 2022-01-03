@@ -14,7 +14,8 @@ namespace Core.Domain.Accounts.Pipelines
         public record Request(
             string Name,
             string AccountClearPassword,
-            string Link) : IRequest<Result> { }
+            string? Link,
+            string? Username) : IRequest<Result> { }
         public record Result(bool Success, string[] Errors) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
@@ -67,7 +68,8 @@ namespace Core.Domain.Accounts.Pipelines
                     request.Name,
                     salt,
                     iv,
-                    request.Link
+                    request.Link,
+                    request.Username
                 );
 
                 // Use the validators

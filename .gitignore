@@ -1,5 +1,6 @@
 .gitignore
 .vs
+.vscode
 Core/bin
 Core/obj
 UI/bin
