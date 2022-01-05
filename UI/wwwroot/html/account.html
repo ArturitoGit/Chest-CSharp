@@ -1,0 +1,37 @@
+<template class="page" id="account-page">
+
+    <div id="title_bar">
+        <!-- Return button -->
+        <button id="btn_back" class="button"><i class="bi bi-arrow-left"></i></button>
+    
+        <!-- Title -->
+        <h2>La banque postale</h2>
+    </div>
+
+    <div id="account-fields-parent">
+        <div id="account-fields">
+            <div class="account-field-div">
+                <label>Link : </label>
+                <a href="#" id="link-field">http://user-link/le_lien_vers_qu....</a>
+                <i class="bi bi-clipboard" id="btn_copy_link"></i>
+            </div>
+            <div class="account-field-div">
+                <label>Username : </label>
+                <span id="username-field">Arturito</span>
+                <i class="bi bi-clipboard" id="btn_copy_username"></i>
+            </div>
+            <div class="account-field-div">
+                <label>Password : </label>
+                <span id="password-field">OHSOohdou%%</span>
+                <i class="bi bi-clipboard" id="btn_copy_password"></i>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="account-btns">
+        <button id="btn_delete" class="button big-btn"><i class="bi bi-trash"></i></button>
+        <button id="btn_edit" class="button big-btn"><i class="bi bi-pencil"></i></button>
+    </div>
+
+</template>

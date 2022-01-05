@@ -1,0 +1,38 @@
+<template class="page" id="accounts-page">
+
+    <div id="title_div">
+    
+        <!-- Options of the app -->
+        <div id="settings_div">
+            <button type="button" id="settings_button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="settings_button">
+                <li><h6 class="dropdown-header">Pick an option</h6></li>
+                <li><a class="dropdown-item" id="btn_edit_password">Change password</a></li>
+            </ul>
+            <!-- <button id="settings_button" ><i class="bi bi-list"></i></button>          -->
+        </div>
+    
+        <!-- Title of the page -->
+        <h2>My accounts</h2>
+    
+        <!-- Search bar -->
+        <div class="input-group-sm" id="search_div">
+            <input id="search_input" type="search" class="form-control" placeholder="Search ..." aria-label="Search ..." aria-describedby="Search input field"/>
+        </div>
+    </div>
+    
+    <!-- Container of the accounts -->
+    <div id="accounts-parent">
+        <div id="accounts"></div>
+    </div>
+    
+    <div id="btns_div">
+        <!-- Add account button -->
+        <button id="add_button" class="button big-btn"><i class="bi bi-plus-lg"></i></button>
+    </div> 
+    
+    <script src="../js/accounts.js"></script>
+        
+</template>

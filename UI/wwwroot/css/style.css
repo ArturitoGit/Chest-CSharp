@@ -1,0 +1,82 @@
+body {
+    /* Global variables */
+    --button-size: 1.7em ;
+    --big-button-size: 2em ;
+    /* --button-color: rgb(170, 70, 70) ;
+    --button-hover-color: rgb(180, 131, 131) ; */
+    --button-color: rgb(49, 116, 179) ;
+    --button-hover-color: rgb(115, 152, 187) ;
+    --button-padding: 0.2em ;
+    --page-bg-color: rgb(233, 233, 233) ;
+    --account-bg-color: white ;
+    --item-hover-bg-color : var(--page-bg-color) ;
+
+    /* All around the page*/
+    padding: 1em ;
+    background-color: var(--page-bg-color) ;
+}
+
+iframe {
+    width: 100% ;
+    height: 100% ;
+}
+
+h2 {
+    font-weight: bold ;
+    font-size: 2em ;
+    color: var(--button-color) ;
+}
+.bi-arrow-right {
+    color: var(--button-color) ;
+}
+
+.button {    
+    cursor: pointer ;
+    /* Color of the button */
+    background: none ;
+    border: 2px solid var(--button-color) ;
+    color: var(--button-color) ;
+    /* Shape of the button */
+    font-size: 1.6rem ;
+    border-radius: 50% ;
+
+    width: var(--button-size) ;
+    height: var(--button-size) ;
+}
+
+.big-btn {
+    width: var(--big-button-size) ;
+    height: var(--big-button-size) ;
+}
+
+.button:hover {
+    /* On hover invert the colors */
+    color: var(--page-bg-color) ;
+    background-color: var(--button-color);
+}
+
+.inversed-btn {
+    color: var(--page-bg-color) ;
+    background-color: var(--button-color)
+}
+
+.inversed-btn:hover {
+    color: var(--button-color) ;
+    background-color: var(--page-bg-color)}
+
+/* CUSTOM SCROLL BAR */
+::-webkit-scrollbar {
+    width: 7px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--account-bg-color);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--button-color);
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background:var(--button-hover-color) ;
+}

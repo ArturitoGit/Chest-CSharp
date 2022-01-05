@@ -1,0 +1,84 @@
+#title_bar {
+    display: flex ;
+    align-items: center ;
+    gap: 2em ;
+    margin-inline : 2em ;
+}
+
+/* Invert the trash colors */
+#btn_delete {
+    color: var(--page-bg-color) ;
+    background-color: var(--button-color);
+}
+
+#btn_delete:hover {
+    color: var(--button-color) ;
+    background: none ;
+}
+
+.account-field-div {
+    display : flex ;
+    align-items : center ;
+}
+
+/* Center the fields part in the window */
+#account-fields-parent {
+    min-height: 20em ;
+    display : grid ;
+    align-items: center;
+}
+
+#account-fields {
+    /* Margin around the fields area */
+    background-color: var(--account-bg-color);
+    padding: 2em ;
+    border-radius: 1em;
+    min-width : 30em ;
+    margin-inline : auto ;
+    margin-block : 2em ;
+    display: flex ;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center ;
+    gap: 1em ;
+}
+
+#account-fields label {
+    font-weight: bold ;
+    min-width: 6em ;
+}
+
+#account-fields a ,
+#account-fields input{
+    display : inline-block ;
+    margin-inline: 1em ;
+}
+
+#account-btns {
+    display: flex ;
+    justify-content: center ;
+    gap: 2em ;
+}
+
+#generate-button {
+    color : var(--button-color) ;
+    font-size : 1.8em ;
+    cursor: pointer ;
+    line-height: 1em ;
+}
+
+#generate-button:hover {
+    color : var(--button-hover-color) ;
+}
+
+#account-fields #error-msg {
+    color : var(--button-color) ;
+    text-align: center ;
+    /* Overrid #account-fields span property for labels */
+    width : auto ;
+    /* Fix the height to avoid resizing of the background on msg appearing */
+    height : 1em ;
+    display : block ;
+    margin-bottom: -1em ;
+    visibility: hidden ;
+}

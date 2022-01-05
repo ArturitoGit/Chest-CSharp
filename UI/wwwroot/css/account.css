@@ -1,0 +1,66 @@
+#title_bar {
+    display: flex ;
+    align-items: center ;
+    gap: 2em ;
+    margin-inline : 2em ;
+}
+
+/* Invert the trash colors */
+#btn_delete {
+    color: var(--page-bg-color) ;
+    background-color: var(--button-color);
+}
+
+#btn_delete:hover {
+    color: var(--button-color) ;
+    background: none ;
+}
+
+/* Center the fields part in the window */
+#account-fields-parent {
+    min-height: 20em ;
+    display : grid ;
+    align-items: center;
+}
+
+#account-fields {
+    /* Margin around the fields area */
+    background-color: var(--account-bg-color);
+    padding: 2em ;
+    border-radius: 1em;
+    margin-inline : auto ;
+    margin-block : 2em ;
+    display: flex ;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center ;
+    gap: 1em ;
+}
+
+#account-fields label {
+    font-weight: bold ;
+    min-width: 6em ;
+}
+
+#account-fields span, 
+#account-fields a {
+    display : inline-block ;
+    width : 15em ;
+    margin-inline: 1em ;
+}
+
+#account-fields i {
+    font-size: 1.3em ;
+    cursor: pointer ;
+    color: var(--button-color)
+}
+
+#account-fields i:hover {
+    color: var(--button-hover-color) ;
+}
+
+#account-btns {
+    display: flex ;
+    justify-content: center ;
+    gap: 2em ;
+}

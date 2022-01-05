@@ -1,0 +1,107 @@
+#title_div {
+    margin-bottom: 1em ;
+    margin-inline: 2em ;
+    display: flex ;
+    align-items: center;
+    flex-wrap: wrap ;
+    min-height: 3em ;
+}
+
+h2 {
+    flex: 40% ;                     /* Part of the whole page width */
+    margin: 0 ;                     /* Override bootstrap parameters */
+}
+
+#settings_div {
+    flex: 12% ;
+}
+
+#settings_div ul {
+    box-shadow: 5px 5px 10px gray;
+    border-radius: 0.5em;
+}
+
+#settings_div li a {
+    cursor : pointer ;
+}
+
+#settings_button {
+    flex: 10% ;
+    background: none ;
+    color: var(--button-color) ;
+    border: 2px solid var(--button-color) ;
+    border-radius: 50% ;
+    padding: var(--button-padding) ;
+    font-size: 1.8em ;
+}
+
+#settings_button:hover {
+    background-color: var(--button-color);
+    color: var(--page-bg-color) ;
+}
+/* Put the search bar up right */
+#search_div {
+    flex: 48% ;                     /* Part of the whole page width */
+    display: flex;                  /* Align content to the right */
+    justify-content: end;
+}
+#search_div input {
+    max-width: 12em ;               /* Restrict the input field width */
+    border: 1px solid var(--button-color) ;
+}
+
+#accounts-parent {
+    height: 20em ;
+    margin-inline: 5em ;
+    background-color: var(--account-bg-color) ;
+    padding-inline: 1em ;
+    border-radius: 1em ;
+    margin-bottom : 1em ;
+}
+
+#accounts {
+    padding-block: 1em ;
+    padding-left: 1em ;
+    height: 20em ;
+    overflow-y: scroll ;            /* Enable the user to scroll */
+}
+
+/* On hover change the background */
+#accounts p:hover {
+    background: var(--item-hover-bg-color) ;
+}
+/* On hover display the arrow of the account */
+#accounts p:hover .bi-arrow-right {
+    display: inline ;
+}
+
+#accounts p {
+    margin: 0 ;
+    margin-right: 2em ;
+    padding: 0.6em ;
+    border-radius: 8px ;
+    font-weight: bold ;
+    position: relative ;
+}
+/* Arrow image at the right of the account view */
+#accounts .bi-arrow-right {
+    display: none ;
+    position: absolute ;
+    font-size: 1.4em ;
+    right : 1em ;
+}
+
+#btns_div {
+    position: relative ;
+    display: flex ;
+    flex-direction: row ;
+    align-items: center ;
+    justify-content: center ;
+}
+
+#no_match_msg {
+    display: block; 
+    margin-top: 2em ;
+    font-style: italic ;
+    text-align: center ;
+}

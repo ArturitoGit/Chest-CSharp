@@ -1,0 +1,42 @@
+
+<template class="page" id="account-edit-page">
+    <div id="title_bar">
+        <!-- Return button -->
+        <button id="btn_back" class="button"><i class="bi bi-arrow-left"></i></button>
+    
+        <!-- Title -->
+        <h2>Edit account</h2>
+    </div>
+    
+    <div id="account-fields-parent">
+        <div id="account-fields">
+            <div class="account-field-div">
+                <label>Name : </label>
+                <input class="form-control form-control-sm" type="text" id="input-name">
+            </div>
+            <div class="account-field-div">
+                <label>Link : </label>
+                <input class="form-control form-control-sm" type="text" id="input-link">
+            </div>
+            <div class="account-field-div">
+                <label>Username : </label>
+                <input class="form-control form-control-sm" type="text" id="input-username">
+            </div>
+            <div class="account-field-div">
+                <label>Password : </label>
+                <input class="form-control form-control-sm" type="text" id="input-password">
+                <i class="bi bi-dice-5" id="generate-button"></i>
+            </div>
+
+            <span id="error-msg">bonjour je m'appelle arthur</span>
+
+        </div>
+    </div>
+    
+    <div id="account-btns">
+        <button id="btn_validate" class="button big-btn"><i class="bi bi-check-lg"></i></button>
+    </div>
+    
+    <script src="../js/account-edit.js"></script>
+
+</template>    
