@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Chest.Core.Infrastructure;
-using static Chest.Core.DependencyInjection.Service;
+using UI.Infrastructure;
+using static UI.DependencyInjection.Service;
 
-namespace Chest.Core.DependencyInjection
+namespace UI.DependencyInjection
 {
    /* 
     * This class is useful to send a request and get a result without caring about the handler.
