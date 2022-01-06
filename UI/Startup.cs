@@ -61,7 +61,8 @@ namespace UI
             Electron.IpcMain.OnSync("is-password-registered", args =>
             {
                 var request = JsonSerializer.Deserialize((string) args, typeof(IsPasswordRegistered.Request)) ;
-                var result = Handle( (IsPasswordRegistered.Request) request)
+                if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
+                var result = Handle( (IsPasswordRegistered.Request) request!)
                     .GetAwaiter().GetResult() ;
                 return result ;
             });
@@ -69,7 +70,8 @@ namespace UI
             Electron.IpcMain.OnSync("add-account", args =>
             {
                 var request = JsonSerializer.Deserialize((string) args, typeof(RegisterAccount.Request)) ;
-                var result = Handle( (RegisterAccount.Request) request)
+                if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
+                var result = Handle( (RegisterAccount.Request) request!)
                     .GetAwaiter().GetResult() ;
                 return result ;
             }) ;
