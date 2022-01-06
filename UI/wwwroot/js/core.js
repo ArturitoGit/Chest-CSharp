@@ -4,9 +4,11 @@ async function openChest ( password )
 {
     console.log("Try to open chest with password : " + password)
 
+    return JSON.parse(await ipcRenderer.sendSync("open-chest", password))
+
     return Promise.resolve(
         {
-            success: password == "test"
+            Success: password == "test"
         }
     )
 }
@@ -42,17 +44,24 @@ async function editAccount ( oldAccount, newAccount )
 
 async function editPassword (oldPassword, newPassword)
 {
-    console.log("change password from ")
-    console.log(oldPassword)
-    console.log("to")
-    console.log(newPassword)
+    var result = await ipcRenderer.sendSync("set-password", 
+    {
+        OldPassword: oldPassword,
+        NewPassword: newPassword
+    })
 
-    return Promise.resolve(
-        {
-            success: true,
-            error: "Test error message ..."
-        }
-    )
+    return result
+}
+
+async function createPassword (password)
+{
+    var result = await ipcRenderer.sendSync("create-password", password)
+    return JSON.parse(result)
+}
+
+async function isPasswordRegistered ()
+{
+    return JSON.parse(ipcRenderer.sendSync("is-password-registered", null))
 }
 
 async function addAccount (account)
@@ -60,12 +69,15 @@ async function addAccount (account)
     console.log("try to add account : ")
     console.log(account)
 
-    return Promise.resolve(
-        {
-            success: false,
-            error_msg: "Invalid username ..."
-        }
-    )
+    const reply = ipcRenderer.sendSync("add-account", 
+    {
+        Name: account.Name,
+        AccountClearPassword: account.password,
+        Link: account.link,
+        Username: account.username
+    }) ;
+
+    return reply
 }
 
 async function generatePassword ( 
@@ -88,71 +100,77 @@ async function setClipboard ( content )
     console.log(`clipboard content set to "${content}" !`)
 }
 
+async function GetAccounts ()
+{
+    var result = await ipcRenderer.sendSync("get-accounts", null)
+    return JSON.parse(result)
+}
 
 
-const GetAccounts = 
-    () => [
-        {
-            Name: "La banque postale",
-            id: 0,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Overleaf",
-            id: 1,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Uber drinks",
-            id: 2,
-            link: "http://test-address.com",
-            username: "Arturitio",
-            password: "29081999"
-        },
-        {
-            Name: "La banque postale",
-            id: 3,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Overleaf",
-            id: 4,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Uber Eats",
-            id: 5,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "La banque postale",
-            id: 6,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Overleaf",
-            id: 7,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-        {
-            Name: "Uber Eats",
-            id: 8,
-            link: "http://test-address.com",
-            username: "Arturitoo",
-            password: "29081999"
-        },
-    ]
+
+// const GetAccounts = 
+//     () => [
+//         {
+//             Name: "La banque postale",
+//             id: 0,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Overleaf",
+//             id: 1,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Uber drinks",
+//             id: 2,
+//             link: "http://test-address.com",
+//             username: "Arturitio",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "La banque postale",
+//             id: 3,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Overleaf",
+//             id: 4,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Uber Eats",
+//             id: 5,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "La banque postale",
+//             id: 6,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Overleaf",
+//             id: 7,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//         {
+//             Name: "Uber Eats",
+//             id: 8,
+//             link: "http://test-address.com",
+//             username: "Arturitoo",
+//             password: "29081999"
+//         },
+//     ]

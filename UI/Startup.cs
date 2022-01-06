@@ -22,6 +22,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using static UI.DependencyInjection.ServiceCollection ;
+using UI.PasswordHash.Pipelines;
+using UI.Domain.Session.Pipelines;
 
 namespace UI
 {
@@ -60,19 +62,59 @@ namespace UI
             // Register for each pipeline
             Electron.IpcMain.OnSync("is-password-registered", args =>
             {
-                var request = JsonSerializer.Deserialize((string) args, typeof(IsPasswordRegistered.Request)) ;
-                if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
-                var result = Handle( (IsPasswordRegistered.Request) request!)
+                // Call the handler
+                var result = Handle(new IsPasswordRegistered.Request())
                     .GetAwaiter().GetResult() ;
-                return result ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                Console.WriteLine("Result : " + serialized_result) ;
+                return serialized_result ;
+            });
+
+            Electron.IpcMain.OnSync("create-password", args =>
+            {
+                // Call the handler
+                var result = Handle(new SetPassword.Request(args.ToString()!))
+                    .GetAwaiter().GetResult() ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                Console.WriteLine("Result : " + serialized_result) ;
+                return serialized_result ;
+            });
+
+            Electron.IpcMain.OnSync("get-accounts", args =>
+            {
+                // Get the accounts from the provider
+                var accounts = GetInstance().GetScope<IAccountProvider>().GetAccounts().GetAwaiter().GetResult() ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(accounts) ;
+                Console.WriteLine("Result : " + serialized_result) ;
+                return serialized_result ;
+            });
+
+            Electron.IpcMain.OnSync("open-chest", args =>
+            {
+                // Call the handler
+                var result = Handle(new OpenChestSession.Request(args.ToString()!))
+                    .GetAwaiter().GetResult() ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                Console.WriteLine("Result : " + serialized_result) ;
+                return serialized_result ;
             });
 
             Electron.IpcMain.OnSync("add-account", args =>
             {
-                var request = JsonSerializer.Deserialize((string) args, typeof(RegisterAccount.Request)) ;
+                var request = JsonSerializer.Deserialize(args.ToString()!, typeof(RegisterAccount.Request)) ;
                 if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
+
                 var result = Handle( (RegisterAccount.Request) request!)
                     .GetAwaiter().GetResult() ;
+
                 return result ;
             }) ;
         }

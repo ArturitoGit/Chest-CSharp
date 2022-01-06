@@ -28,6 +28,9 @@ function onNewAccountEditPageLoaded ()
             }
         )
 
+        // For debugging purpose log the result
+        console.log(result)
+
         if (result.success)
         {
             // Go back to the accounts page
@@ -73,6 +76,8 @@ function onAccountEditPageLoaded ( account )
 
 
     btn_submit.onclick = async () => {
+
+        console.log("Beginning of the edit account procedure")
 
         // Send the request
         var result = await editAccount(

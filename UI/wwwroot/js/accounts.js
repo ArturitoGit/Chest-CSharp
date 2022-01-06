@@ -6,7 +6,7 @@ function onAccountsPageLoaded()
     const btn_edit_password = document.getElementById("btn_edit_password")
 
     add_button.onclick = () => DisplayNewAccountEditPage() 
-    btn_edit_password.onclick = () => DisplayPasswordEditPage()
+    btn_edit_password.onclick = () => DisplayPasswordEditPage(false)
 
     search_input.addEventListener('input', _event =>
     {
@@ -33,10 +33,18 @@ function onAccountsPageLoaded()
     }
 
     const FillAccounts = ( accounts ) => 
+        {
+            console.log("accounts test")
+            // If there is no account inside
+            if (accounts.length <= 0) {
+                accounts_div.appendChild(CreateNoAccountView())
+                return
+            }
             // For each account
             accounts.forEach( account => 
                 // Append account view to the container
                 accounts_div.appendChild(CreateAccountView(account)))
+        }
 
 
     const CreateAccountView = account =>
@@ -50,6 +58,14 @@ function onAccountsPageLoaded()
         return element
     }
 
+    const CreateNoAccountView = () =>
+    {
+        var element = document.createElement('span')
+        element.innerHTML = "No account registered yet"
+        element.id = "no_match_msg"
+        return element
+    }
+
     const ResetAccountView = () => accounts_div.innerHTML = "" ;
 
     function onAccountClicked ( account )
@@ -57,6 +73,11 @@ function onAccountsPageLoaded()
         DisplayAccountPage( account ) ;
     }
 
-    // Fill the accounts in the page
-    FillAccounts(GetAccounts()) ;
+    async function init ()
+    {
+        var accounts = await GetAccounts()
+        FillAccounts(accounts) 
+    }
+
+    init()
 }

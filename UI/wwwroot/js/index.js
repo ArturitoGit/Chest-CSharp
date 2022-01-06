@@ -18,10 +18,10 @@ function DisplayAccountEditPage ( account )
     onAccountEditPageLoaded( account )
 }
 
-function DisplayPasswordEditPage ()
+function DisplayPasswordEditPage (create)
 {
     SetPageContent("password-edit-page")
-    onPasswordEditPageLoaded()
+    onPasswordEditPageLoaded(create)
 }
 
 function DisplayNewAccountEditPage ()

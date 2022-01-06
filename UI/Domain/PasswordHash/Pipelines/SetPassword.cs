@@ -9,7 +9,7 @@ using UI.Domain.PasswordHash;
 using UI.Domain.PasswordHash.Services;
 using static UI.DependencyInjection.Service;
 
-namespace Core.Domain.PasswordHash.Pipelines
+namespace UI.PasswordHash.Pipelines
 {
     public class SetPassword
     {

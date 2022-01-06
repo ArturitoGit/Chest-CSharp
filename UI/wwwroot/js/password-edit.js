@@ -1,4 +1,5 @@
-function onPasswordEditPageLoaded () {
+// Create is a boolean argument that indicates if the page is displayed for a first password (no old password)
+function onPasswordEditPageLoaded (create) {
     
     const old_password_field = document.getElementById("input-old")
     const new_password_field = document.getElementById("input-new")
@@ -6,6 +7,9 @@ function onPasswordEditPageLoaded () {
     const btn_submit = document.getElementById("btn_validate")
     const btn_back = document.getElementById("btn_back")
     const span_error = document.getElementById("password-error-msg")
+
+    // Hide old password if first password
+    if (create) old_password_field.style.visibility = "hidden"
 
     btn_back.onclick = () => DisplayAccountsPage()
 
@@ -23,7 +27,10 @@ function onPasswordEditPageLoaded () {
         }
 
         // Call the core request
-        var result = await editPassword(old_password_field.value, new_password_field.value) ;
+        var result = create ?
+            await createPassword(new_password_field.value) :
+            await editPassword(old_password_field.value, new_password_field.value) ;
+            
         
         if (!result.success)
         {

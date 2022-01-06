@@ -6,6 +6,7 @@ using UI.Domain.Accounts.Services;
 using UI.Domain.Crypto.Services;
 using UI.Domain.Session.Services;
 using static UI.DependencyInjection.Service;
+using System;
 
 namespace UI.Domain.Accounts.Pipelines
 {
@@ -44,6 +45,9 @@ namespace UI.Domain.Accounts.Pipelines
 
             public async Task<Result> Handle(Request request)
             {
+
+                Console.WriteLine("here") ;
+
                 // Check that the request parameters are corrects
                 var (isRequestValid, requestErrors) = Validator.Validate(_requestValidators, request);
                 if (!isRequestValid) return new Result(false, requestErrors);

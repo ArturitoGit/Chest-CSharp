@@ -1,11 +1,18 @@
 
 // Import the templates of all of the 
-ImportTemplate("login.html", DisplayLoginPage )
 ImportTemplate("accounts.html")
 ImportTemplate("account-edit.html")
 ImportTemplate("account.html")
 ImportTemplate("password.html")
-ImportTemplate("password-edit.html")
+
+// Pages login and password-edit must be loaded before displaying anything
+ImportTemplate("login.html", () =>
+    ImportTemplate("password-edit.html", 
+        WhenInitialImported // Display the first page
+    )
+)
+
+
 
 function ImportTemplate ( template_path, cb )
 {
@@ -16,5 +23,20 @@ function ImportTemplate ( template_path, cb )
         // Call the callback function if there is one
         if (typeof(cb) == 'function') cb()
     });
+}
+
+
+
+async function WhenInitialImported ()
+{
+    // Check that there is already a password 
+    var result = await isPasswordRegistered()
+
+    // If there is no password registered create one by redirecting
+    if (result.IsPasswordRegistered) 
+        DisplayLoginPage() 
+    else 
+        DisplayPasswordEditPage(true)
+
 }
 
