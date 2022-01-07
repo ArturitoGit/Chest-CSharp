@@ -20,6 +20,11 @@ async function deleteAccount ( account )
     console.log( reply ) ;
 }
 
+function decryptPassword (account)
+{
+    return JSON.parse(ipcRenderer.sendSync("decrypt-password", account))
+}
+
 async function editAccount ( oldAccount, newAccount )
 {
     console.log("edit account from")
@@ -64,20 +69,20 @@ async function isPasswordRegistered ()
     return JSON.parse(ipcRenderer.sendSync("is-password-registered", null))
 }
 
-async function addAccount (account)
+function addAccount (account)
 {
     console.log("try to add account : ")
     console.log(account)
 
-    const reply = ipcRenderer.sendSync("add-account", 
+    var result = ipcRenderer.sendSync("add-account", 
     {
         Name: account.Name,
         AccountClearPassword: account.password,
         Link: account.link,
         Username: account.username
-    }) ;
+    }) 
 
-    return reply
+    return JSON.parse(result) ;
 }
 
 async function generatePassword ( 

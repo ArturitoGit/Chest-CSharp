@@ -6,21 +6,30 @@ function onAccountPageLoaded (account)
     const link_field = document.getElementById("link-field")
     const username_field = document.getElementById("username-field")
     const password_field = document.getElementById("password-field")
+    const name_field = document.getElementById("name-field")
 
     const btn_copy_link = document.getElementById("btn_copy_link")
     const btn_copy_username = document.getElementById("btn_copy_username")
     const btn_copy_password = document.getElementById("btn_copy_password")
 
+    console.log("decrypt password is going to be sent, here is the account : ")
+    console.log(account)
+
+    // Get the account infos from the core project
+    var result = decryptPassword(account)
+    var password = result.Success ? result.ClearPassword : "???"
+
     // Back action
     back_btn.onclick = () => DisplayAccountsPage() 
 
-    fillFields(account)
+    fillFields(account, password)
     // Fill the fields of the account
-    function fillFields (account)
+    function fillFields (account, password)
     {
-        link_field.innerHTML = account.link || ""
-        username_field.innerHTML = account.username || ""
-        password_field.innerHTML = account.password || ""
+        link_field.innerHTML = account.Link || ""
+        username_field.innerHTML = account.Username || ""
+        name_field.innerHTML = account.Name
+        password_field.innerHTML = password || ""
     }
 
     // Delete btn action

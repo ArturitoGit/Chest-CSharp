@@ -50,6 +50,7 @@ namespace UI.Domain.Accounts.Pipelines
 
                 // Check that the request parameters are corrects
                 var (isRequestValid, requestErrors) = Validator.Validate(_requestValidators, request);
+                Console.WriteLine(Validator.Validate(_requestValidators, request).ToString()) ;
                 if (!isRequestValid) return new Result(false, requestErrors);
 
                 // Get a random salt

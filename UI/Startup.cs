@@ -29,6 +29,8 @@ namespace UI
 {
     public class Startup
     {
+        private static Boolean DEBUG = true ; 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -107,15 +109,45 @@ namespace UI
                 return serialized_result ;
             });
 
+            Electron.IpcMain.OnSync("decrypt-password", args =>
+            {
+
+                Debug("Decrypt Password request has been received") ;
+
+                // Deserialize the request
+                var request = new DecryptPassword.Request( (ChestAccount) JsonSerializer.Deserialize(args.ToString()!, typeof(ChestAccount))!) ;
+                
+                Debug ("Decrypt password request has been deserialized : ") ;
+                Debug (request.ToString()) ;
+
+                // Call the handler
+                var result = Handle(request)
+                    .GetAwaiter().GetResult() ;
+
+                Debug ("Result of decrypt password request is : ") ;
+                Debug(result.ToString()) ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                Console.WriteLine("Result : " + serialized_result) ;
+                return serialized_result ;
+            });
+
             Electron.IpcMain.OnSync("add-account", args =>
             {
+                Debug("Add account request received !") ;
                 var request = JsonSerializer.Deserialize(args.ToString()!, typeof(RegisterAccount.Request)) ;
                 if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
 
                 var result = Handle( (RegisterAccount.Request) request!)
                     .GetAwaiter().GetResult() ;
 
-                return result ;
+                // Sezrialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+
+                Debug("Add account response sent : " + serialized_result.ToString()) ;
+
+                return serialized_result ;
             }) ;
         }
 
@@ -128,6 +160,11 @@ namespace UI
             GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
 
             Console.WriteLine("Dependencies registered !") ;
+        }
+
+        private void Debug (string message)
+        {
+            if (DEBUG) Console.WriteLine(message) ;
         }
     }
 }

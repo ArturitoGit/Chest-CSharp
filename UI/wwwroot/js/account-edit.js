@@ -27,11 +27,8 @@ function onNewAccountEditPageLoaded ()
                 password: password_input.value
             }
         )
-
-        // For debugging purpose log the result
-        console.log(result)
-
-        if (result.success)
+        
+        if (result.Success)
         {
             // Go back to the accounts page
             DisplayAccountsPage()
@@ -39,7 +36,7 @@ function onNewAccountEditPageLoaded ()
         }
 
         // If failure print the error msg
-        error_span.innerHTML = result.error_msg || "Unknown error ..."
+        error_span.innerHTML = result.Errors[0] || "Unknown error ..."
         error_span.style.visibility = "visible"
     }
 
