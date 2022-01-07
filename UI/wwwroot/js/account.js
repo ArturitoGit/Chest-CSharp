@@ -35,7 +35,11 @@ function onAccountPageLoaded (account)
     // Delete btn action
     delete_btn.onclick = () => 
     {
+        // Delete the account
         deleteAccount( account )
+
+        // Display the menu
+        DisplayAccountsPage() 
     }
 
     // Edit btn action

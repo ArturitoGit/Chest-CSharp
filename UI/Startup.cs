@@ -1,35 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
-using UI.DependencyInjection;
 using UI.Domain.Accounts;
-using UI.Domain.Accounts.Pipelines;
 using UI.Domain.Accounts.Services;
 using UI.Domain.Crypto;
 using UI.Domain.Crypto.Services;
 using UI.Domain.PasswordHash;
-using UI.Domain.PasswordHash.Pipelines;
 using UI.Domain.PasswordHash.Services;
 using UI.Domain.Session;
 using UI.Domain.Session.Services;
 using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using static UI.DependencyInjection.ServiceCollection ;
-using UI.PasswordHash.Pipelines;
-using UI.Domain.Session.Pipelines;
 
 namespace UI
 {
     public class Startup
     {
-        private static Boolean DEBUG = true ; 
+        public static Boolean DEBUG = true ; 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -53,102 +44,10 @@ namespace UI
 
             // Subscribe the project to the ui requests
             RegisterServices() ;
-            Subscribe() ;
+            UIRequestHandler.Subscribe() ;
 
             // Open the electron window here
             Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
-        }
-
-        public void Subscribe ()
-        {
-            // Register for each pipeline
-            Electron.IpcMain.OnSync("is-password-registered", args =>
-            {
-                // Call the handler
-                var result = Handle(new IsPasswordRegistered.Request())
-                    .GetAwaiter().GetResult() ;
-
-                // Serialize the answer
-                var serialized_result = JsonSerializer.Serialize(result) ;
-                Console.WriteLine("Result : " + serialized_result) ;
-                return serialized_result ;
-            });
-
-            Electron.IpcMain.OnSync("create-password", args =>
-            {
-                // Call the handler
-                var result = Handle(new SetPassword.Request(args.ToString()!))
-                    .GetAwaiter().GetResult() ;
-
-                // Serialize the answer
-                var serialized_result = JsonSerializer.Serialize(result) ;
-                Console.WriteLine("Result : " + serialized_result) ;
-                return serialized_result ;
-            });
-
-            Electron.IpcMain.OnSync("get-accounts", args =>
-            {
-                // Get the accounts from the provider
-                var accounts = GetInstance().GetScope<IAccountProvider>().GetAccounts().GetAwaiter().GetResult() ;
-
-                // Serialize the answer
-                var serialized_result = JsonSerializer.Serialize(accounts) ;
-                Console.WriteLine("Result : " + serialized_result) ;
-                return serialized_result ;
-            });
-
-            Electron.IpcMain.OnSync("open-chest", args =>
-            {
-                // Call the handler
-                var result = Handle(new OpenChestSession.Request(args.ToString()!))
-                    .GetAwaiter().GetResult() ;
-
-                // Serialize the answer
-                var serialized_result = JsonSerializer.Serialize(result) ;
-                Console.WriteLine("Result : " + serialized_result) ;
-                return serialized_result ;
-            });
-
-            Electron.IpcMain.OnSync("decrypt-password", args =>
-            {
-
-                Debug("Decrypt Password request has been received") ;
-
-                // Deserialize the request
-                var request = new DecryptPassword.Request( (ChestAccount) JsonSerializer.Deserialize(args.ToString()!, typeof(ChestAccount))!) ;
-                
-                Debug ("Decrypt password request has been deserialized : ") ;
-                Debug (request.ToString()) ;
-
-                // Call the handler
-                var result = Handle(request)
-                    .GetAwaiter().GetResult() ;
-
-                Debug ("Result of decrypt password request is : ") ;
-                Debug(result.ToString()) ;
-
-                // Serialize the answer
-                var serialized_result = JsonSerializer.Serialize(result) ;
-                Console.WriteLine("Result : " + serialized_result) ;
-                return serialized_result ;
-            });
-
-            Electron.IpcMain.OnSync("add-account", args =>
-            {
-                Debug("Add account request received !") ;
-                var request = JsonSerializer.Deserialize(args.ToString()!, typeof(RegisterAccount.Request)) ;
-                if (request is null) throw new Exception("Request not deserializable : " + nameof(request)) ;
-
-                var result = Handle( (RegisterAccount.Request) request!)
-                    .GetAwaiter().GetResult() ;
-
-                // Sezrialize the answer
-                var serialized_result = JsonSerializer.Serialize(result) ;
-
-                Debug("Add account response sent : " + serialized_result.ToString()) ;
-
-                return serialized_result ;
-            }) ;
         }
 
         public void RegisterServices ()
@@ -160,11 +59,6 @@ namespace UI
             GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
 
             Console.WriteLine("Dependencies registered !") ;
-        }
-
-        private void Debug (string message)
-        {
-            if (DEBUG) Console.WriteLine(message) ;
         }
     }
 }

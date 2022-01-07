@@ -75,6 +75,7 @@ function onAccountsPageLoaded()
 
     async function init ()
     {
+        console.log("init !")
         var accounts = await GetAccounts()
         FillAccounts(accounts) 
     }

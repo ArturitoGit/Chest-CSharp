@@ -13,11 +13,11 @@ async function openChest ( password )
     )
 }
 
-async function deleteAccount ( account )
+function deleteAccount ( account )
 {
-    const reply = ipcRenderer.sendSync("delete-account", "account-name") ;
-    console.log("new function has been detected")
-    console.log( reply ) ;
+    console.log("account to be deleted : ")
+    console.log(account) 
+    ipcRenderer.sendSync("delete-account", account.Id) ;
 }
 
 function decryptPassword (account)
