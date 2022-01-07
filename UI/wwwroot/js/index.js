@@ -18,16 +18,16 @@ function DisplayAccountEditPage ( account )
     onAccountEditPageLoaded( account )
 }
 
-function DisplayPasswordEditPage (create)
+function DisplayPasswordEditPage ()
 {
     SetPageContent("password-edit-page")
-    onPasswordEditPageLoaded(create)
+    onPasswordEditPageLoaded()
 }
 
-function DisplayNewAccountEditPage ()
+function DisplayNewAccountEditPage (account)
 {
     SetPageContent("account-edit-page")
-    onNewAccountEditPageLoaded()
+    onNewAccountEditPageLoaded(account)
 }
 
 function DisplayAccountPage ( account )
@@ -36,10 +36,10 @@ function DisplayAccountPage ( account )
     onAccountPageLoaded( account )
 }
 
-function DisplayPasswordPage ( account )
+function DisplayPasswordPage ( account, create )
 {
     SetPageContent("password-page")
-    onPasswordPageLoaded( account ) 
+    onPasswordPageLoaded( account, create ) 
 }
 
 function SetPageContent ( page_id )

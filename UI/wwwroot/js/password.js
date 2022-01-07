@@ -1,4 +1,4 @@
-function onPasswordPageLoaded ( account )
+function onPasswordPageLoaded ( account, create )
 {
     const check_upper = document.getElementById("input-upper")
     const check_lower = document.getElementById("input-lower")
@@ -12,6 +12,12 @@ function onPasswordPageLoaded ( account )
     const btn_generate = document.getElementById("btn_generate")
     const input_mandatory = document.getElementById("input-mandatory")
     const btn_copy = document.getElementById("btn_copy")
+
+    // Update the displayed password
+    if (account != null && account.password != "")
+    {
+        password_preview.innerHTML = account.password
+    }
 
     // On size-input change 
     input_size.oninput = () =>
@@ -27,14 +33,14 @@ function onPasswordPageLoaded ( account )
         // Update the account password attribute
         account.password = password_preview.innerText
         
-        // Go back to the edit account page
-        DisplayAccountEditPage(account)
+        // Go back to the right page
+        create ? DisplayNewAccountEditPage(account) : DisplayAccountEditPage(account)
     }
 
-    btn_generate.onclick = async () => 
+    btn_generate.onclick = () => 
     {
         // Send a request for a random password
-        let result = await generatePassword(
+        let result = generatePassword(
             input_size.value,
             check_upper.checked == '1',
             check_lower.checked == '1',
@@ -44,7 +50,7 @@ function onPasswordPageLoaded ( account )
         )
 
         // Update the displayed password
-        password_preview.innerHTML = result.password 
+        password_preview.innerHTML = result.Password 
 
         // Update the copy button
         UnCheckCopyIcon(btn_copy.lastChild)
@@ -59,6 +65,6 @@ function onPasswordPageLoaded ( account )
         CheckCopyIcon(btn_copy.lastChild)
     }
 
-    btn_back.onclick = () => DisplayAccountEditPage( account )
+    btn_back.onclick = () => create ? DisplayNewAccountEditPage(account) : DisplayAccountEditPage( account )
 
 }

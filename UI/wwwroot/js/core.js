@@ -85,19 +85,25 @@ function addAccount (account)
     return JSON.parse(result) ;
 }
 
-async function generatePassword ( 
+function generatePassword ( 
     size,
     upper, lower, symbols, numbers,
     mandatory_letters )
 {
-    console.log("generate password with parameters :")
+    console.log("generate password result :")
     console.log(arguments)
+
+    var result = ipcRenderer.sendSync("generate-password", 
+    {
+        PasswordLength: parseInt(size), 
+        UseUpperAlphabet: upper,
+        UseLowerAlphabet: lower, 
+        UseNumbers: numbers,
+        UseSymbols: symbols,
+        ForcedSubsets: Array.from(mandatory_letters)
+    })
     
-    return Promise.resolve(
-        {
-            password: "Petit Henry"
-        }
-    )
+    return JSON.parse(result)
 }
 
 async function setClipboard ( content )

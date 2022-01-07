@@ -8,6 +8,7 @@ using UI.Domain.Accounts.Services;
 using UI.Domain.Accounts;
 using UI.Domain.Accounts.Pipelines;
 using System;
+using UI.Domain.Generator.Pipelines;
 
 namespace UI
 {
@@ -43,6 +44,32 @@ namespace UI
 
                 // Answer something
                 return null ;
+            });
+
+            Electron.IpcMain.OnSync("generate-password", args =>
+            {
+                Debug("Generate password request received : " + args.ToString()) ;
+
+                Debug(JsonSerializer.Serialize(new GeneratePassword.Request(
+                    10,
+                    true,
+                    true,
+                    true,
+                    true,
+                    new string[] {}
+                )));
+
+                // Handle the request
+                var request = (GeneratePassword.Request) JsonSerializer.Deserialize(args.ToString()!, typeof(GeneratePassword.Request))! ;
+                var result = Handle(request).GetAwaiter().GetResult() ;
+
+                // Serialize the result
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                
+                Debug("Send Generate password result : ") ;
+                Debug(serialized_result.ToString()) ;
+
+                return serialized_result ;
             });
 
             Electron.IpcMain.OnSync("create-password", args =>

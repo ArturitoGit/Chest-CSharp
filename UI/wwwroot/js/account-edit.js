@@ -1,4 +1,4 @@
-function onNewAccountEditPageLoaded ()
+function onNewAccountEditPageLoaded (account)
 {
     const btn_back = document.getElementById("btn_back")
     const name_input = document.getElementById("input-name")
@@ -8,10 +8,26 @@ function onNewAccountEditPageLoaded ()
     const btn_submit = document.getElementById("btn_validate")
     const error_span = document.getElementById("error-msg")
     const btn_pwd = document.getElementById("generate-button")
+    const title_field = document.getElementById("title-field")
+
+    console.log("account received : " + account) 
 
     
     btn_back.onclick = () => DisplayAccountsPage()
-    btn_pwd.onclick = () => DisplayPasswordPage(getCurrentPassword())
+    btn_pwd.onclick = () => DisplayPasswordPage(getCurrentPassword(), true)
+
+    // Fill the input fields if some are given as parameter
+    if (account != null)
+    {
+        name_input.value = account.Name || ""
+        link_input.value = account.link || ""
+        username_input.value = account.username || ""
+        password_input.value = account.password || ""
+    }
+
+    // Change the title to "create account"
+    title_field.innerHTML = "Create account"
+
 
     btn_submit.onclick = async () => {
 
@@ -62,8 +78,8 @@ function onAccountEditPageLoaded ( account )
     const error_span = document.getElementById("error-msg")
     const btn_pwd = document.getElementById("generate-button")
 
-    btn_back.onclick = () => DisplayAccountPage( account )
-    btn_pwd.onclick = () => DisplayPasswordPage(getCurrentPassword())
+    btn_back.onclick = () => DisplayAccountsPage()
+    btn_pwd.onclick = () => DisplayPasswordPage(getCurrentPassword(), false)
     
     // Fill the input fields
     name_input.value = account.Name || ""
@@ -73,8 +89,6 @@ function onAccountEditPageLoaded ( account )
 
 
     btn_submit.onclick = async () => {
-
-        console.log("Beginning of the edit account procedure")
 
         // Send the request
         var result = await editAccount(
