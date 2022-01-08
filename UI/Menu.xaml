@@ -12,7 +12,7 @@
         <StackPanel x:Name="Root">
             <Label Content="Your passwords" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Margin="0,20,0,0"/>
             <Label x:Name="LabelPlus" Content="+" HorizontalAlignment="Center" FontSize="25" MouseDown="AddItem" MouseEnter="OnPlusME" MouseLeave="OnPlusML"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Height="290">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Height="260">
                 <StackPanel x:Name="StackAccounts" VerticalAlignment="Top"/>
             </ScrollViewer>
         </StackPanel>
