@@ -30,7 +30,7 @@ function ImportTemplate ( template_path, cb )
 async function WhenInitialImported ()
 {
     // Check that there is already a password 
-    var result = await isPasswordRegistered()
+    var result = isPasswordRegistered()
 
     // If there is no password registered create one by redirecting
     if (result.IsPasswordRegistered) 

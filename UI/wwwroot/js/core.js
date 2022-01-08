@@ -1,16 +1,8 @@
 const { ipcRenderer } = require("electron") ;
 
-async function openChest ( password )
+function openChest ( password )
 {
-    console.log("Try to open chest with password : " + password)
-
-    return JSON.parse(await ipcRenderer.sendSync("open-chest", password))
-
-    return Promise.resolve(
-        {
-            Success: password == "test"
-        }
-    )
+    return JSON.parse(ipcRenderer.sendSync("open-chest", password))
 }
 
 function deleteAccount ( account )
@@ -25,31 +17,17 @@ function decryptPassword (account)
     return JSON.parse(ipcRenderer.sendSync("decrypt-password", account))
 }
 
-async function editAccount ( oldAccount, newAccount )
+function editAccount ( oldAccount, newAccount )
 {
-    console.log("edit account from")
-    console.log(oldAccount)
-    console.log("to")
-    console.log(newAccount)
 
-    return Promise.resolve(
-        {
-            success: true,
-            account:
-                {
-                    id: oldAccount.id,
-                    Name: newAccount.Name,
-                    link: newAccount.link,
-                    username: newAccount.username,
-                    password: newAccount.password
-                }
-        }
-    )
+    var result = ipcRenderer.sendSync("edit-account", newAccount)
+
+    return JSON.parse(result)
 }
 
-async function editPassword (oldPassword, newPassword)
+function editPassword (oldPassword, newPassword)
 {
-    var result = await ipcRenderer.sendSync("set-password", 
+    var result = ipcRenderer.sendSync("set-password", 
     {
         OldPassword: oldPassword,
         NewPassword: newPassword
@@ -58,13 +36,13 @@ async function editPassword (oldPassword, newPassword)
     return result
 }
 
-async function createPassword (password)
+function createPassword (password)
 {
-    var result = await ipcRenderer.sendSync("create-password", password)
+    var result = ipcRenderer.sendSync("create-password", password)
     return JSON.parse(result)
 }
 
-async function isPasswordRegistered ()
+function isPasswordRegistered ()
 {
     return JSON.parse(ipcRenderer.sendSync("is-password-registered", null))
 }
@@ -111,77 +89,8 @@ async function setClipboard ( content )
     console.log(`clipboard content set to "${content}" !`)
 }
 
-async function GetAccounts ()
+function GetAccounts ()
 {
-    var result = await ipcRenderer.sendSync("get-accounts", null)
+    var result = ipcRenderer.sendSync("get-accounts", null)
     return JSON.parse(result)
 }
-
-
-
-// const GetAccounts = 
-//     () => [
-//         {
-//             Name: "La banque postale",
-//             id: 0,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Overleaf",
-//             id: 1,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Uber drinks",
-//             id: 2,
-//             link: "http://test-address.com",
-//             username: "Arturitio",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "La banque postale",
-//             id: 3,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Overleaf",
-//             id: 4,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Uber Eats",
-//             id: 5,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "La banque postale",
-//             id: 6,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Overleaf",
-//             id: 7,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//         {
-//             Name: "Uber Eats",
-//             id: 8,
-//             link: "http://test-address.com",
-//             username: "Arturitoo",
-//             password: "29081999"
-//         },
-//     ]

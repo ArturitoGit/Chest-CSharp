@@ -18,6 +18,8 @@ function onAccountPageLoaded (account)
     // Get the account infos from the core project
     var result = decryptPassword(account)
     var password = result.Success ? result.ClearPassword : "???"
+    // Update the password in the account
+    account.password = password 
 
     // Back action
     back_btn.onclick = () => DisplayAccountsPage() 

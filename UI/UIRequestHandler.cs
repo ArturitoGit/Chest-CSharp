@@ -83,6 +83,25 @@ namespace UI
                 return serialized_result ;
             });
 
+            Electron.IpcMain.OnSync("edit-account", args =>
+            {
+                Debug("Received Edit password request") ;
+                Debug("Raw request : " + args.ToString()) ;
+
+                // Deserialize the request
+                var request = (UpdateAccount.Request) JsonSerializer.Deserialize(args.ToString()!, typeof(UpdateAccount.Request))! ;
+                Debug("Edit password request deserialized successfully") ;
+
+                // Call the handler
+                var result = Handle(request)
+                    .GetAwaiter().GetResult() ;
+
+                // Serialize the answer
+                var serialized_result = JsonSerializer.Serialize(result) ;
+                Debug("Edit password result sent : " + serialized_result.ToString()) ;
+                return serialized_result ;
+            });
+
             Electron.IpcMain.OnSync("get-accounts", args =>
             {
                 // Get the accounts from the provider

@@ -91,7 +91,7 @@ function onAccountEditPageLoaded ( account )
     btn_submit.onclick = async () => {
 
         // Send the request
-        var result = await editAccount(
+        var result = editAccount(
             account, 
             {
                 Name: name_input.value,
@@ -101,14 +101,14 @@ function onAccountEditPageLoaded ( account )
             }
         )
 
-        if (result.success)
+        if (result.Success)
         {
             DisplayAccountPage(result.account)
             return
         }
 
         // If failure print the error msg
-        error_span.innerHTML = result.error_msg || "Unknown error ..."
+        error_span.innerHTML = result.Errors[0] || "Unknown error ..."
         error_span.style.visibility = "visible"
     }
 
