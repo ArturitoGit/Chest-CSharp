@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Chest.Core;
 using Chest.Core.DependencyInjection;
-using Chest.Core.Infrastructure;
 using Core.Domain.Accounts;
 using Core.Domain.Accounts.Services;
 using Core.Domain.Crypto;
@@ -16,9 +8,9 @@ using Core.Domain.PasswordHash;
 using Core.Domain.PasswordHash.Pipelines;
 using Core.Domain.PasswordHash.Services;
 using Core.Domain.Session;
+using Core.Domain.Session.Pipelines;
 using Core.Domain.Session.Services;
-using static Chest.Core.DependencyInjection.Service;
-using static Core.Domain.Accounts.Pipelines.RegisterAccount;
+using System.Linq ;
 
 namespace Core
 {
@@ -26,36 +18,53 @@ namespace Core
     {
         public static void Main (string[] args)
         {   
-            OpenUrlInBrowser(null!) ;
-        }
+            // Register the services
+            ServiceCollection.GetInstance().RegisterScope<ICryptoAgent, CryptoAgent>();
+            ServiceCollection.GetInstance().RegisterScope<IAccountProvider, AccountProvider>();
+            ServiceCollection.GetInstance().RegisterScope<IChestSessionProvider, ChestSessionProvider>();
+            ServiceCollection.GetInstance().RegisterScope<IPasswordHashProvider, PasswordHashProvider>();
+            ServiceCollection.GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
 
-        public static void OpenUrlInBrowser (string url)
-        {
-            try
+            // Check if the chest has a registered password
+            var result = ServiceCollection.Handle(new IsPasswordRegistered.Request()).GetAwaiter().GetResult() ;
+            if ( !result.IsPasswordRegistered )
             {
-                Process.Start(url);
+                Console.WriteLine("Your chest has not been initialized yet ...") ;
+                return ;
             }
-            catch
+
+            // Ask for the password
+            Console.WriteLine("Please enter the password of the chest") ;
+            var password = Console.ReadLine() ;
+            if (string.IsNullOrEmpty(password)) 
             {
-                // hack because of this: https://github.com/dotnet/corefx/issues/10361
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
-                }
+                Console.WriteLine("The password must not be null !") ;
+                return ;
             }
+
+            // Check it
+            var openChestSession_result = ServiceCollection.Handle(new OpenChestSession.Request(password))
+                    .GetAwaiter().GetResult() ;
+            if (!openChestSession_result.Success) 
+            {
+                Console.WriteLine("The password is not valid ...") ;
+                return ;
+            }
+
+            var accountProvider = ServiceCollection.GetInstance().GetScope<IAccountProvider>() ;
+            var accounts = accountProvider.GetAccounts().GetAwaiter().GetResult() ;
+            var gitAccount = accounts.Single( a => a.Name == "Github") ;
+
+            var uncryptResult = ServiceCollection.Handle(new DecryptPassword.Request(gitAccount)).GetAwaiter().GetResult() ;
+
+            if (!uncryptResult.Success)
+            {
+                Console.WriteLine("Failed to decrypt the password ...") ;
+                return ;
+            }
+
+            Console.WriteLine("Password of Git : ") ;
+            Console.WriteLine(uncryptResult.ClearPassword) ;
         }
     }
 }
