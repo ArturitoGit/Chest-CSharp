@@ -1,5 +1,7 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain.Crypto.Services;
+using Core.Domain.PasswordHash;
 using Core.Domain.PasswordHash.Pipelines;
 using Core.Domain.PasswordHash.Services;
 using Core.Domain.Session.Services;
@@ -33,6 +35,13 @@ namespace Core.Domain.Session.Pipelines
 
             public async Task<Result> Handle(Request request)
             {
+                // Check if one password is already stored
+                try {
+                    await _passwordProvider.GetPasswordHash() ;
+                } catch (NoPasswordStoredException) {
+                    return new Result(false) ;
+                }
+
                 // Check if the given password is correct
                 var validPassword = await _passwordChecker.IsPasswordCorrect(request.Password) ;
                 var session = _sessionProvider.GetSession() ;

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZDYHGcrZiH0YqNP8pVYZZxtJWkp1IL3nOxR7byOlAYoNDd2+FG3EteUuTtGtWZ93XTU8JAKilBf0bcuiY5XFvQ==",
+  "dgSpecHash": "UYG14LRZBp4i+KDBZnM0WzdSg54420b+I7LR8fk2ettMaDQhwwNQv99v76ZLomVz04ak5kly886pAVs+dOV5BA==",
   "success": true,
   "projectFilePath": "D:\\Archives\\Prog\\C#\\Chest\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Arthu\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Arthu\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Arthu\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Arthu\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",

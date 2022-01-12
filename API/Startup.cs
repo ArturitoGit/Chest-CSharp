@@ -5,12 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
+using static Chest.Core.DependencyInjection.ServiceCollection ;
+using Core.Domain.Crypto.Services;
+using Core.Domain.Accounts.Services;
+using Core.Domain.PasswordHash.Services;
+using Core.Domain.Session.Services;
+using Core.Domain.Session;
+using Core.Domain.PasswordHash;
+using Core.Domain.Accounts;
+using Core.Domain.Crypto;
+using Core.Domain.PasswordHash.Pipelines;
 
 namespace API
 {
@@ -54,6 +65,16 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
+
+            // Register the services
+            GetInstance().RegisterScope<ICryptoAgent, CryptoAgent>();
+            GetInstance().RegisterScope<IAccountProvider, AccountProvider>();
+            GetInstance().RegisterScope<IPasswordHashProvider, PasswordHashProvider>();
+            GetInstance().RegisterScope<IChestSessionProvider, ChestSessionProvider>();
+            GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
+
+            // Password is now Jordy
         }
     }
 }

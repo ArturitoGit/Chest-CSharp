@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{14C073BB-8EAD-4461-92F5-64068F5068E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{3932B162-7C57-465B-B9DD-FE2AD497CE3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,5 +70,17 @@ Global
 		{24B8BA0E-A2B0-42CB-818F-116B326EBA27}.Release|x64.Build.0 = Release|Any CPU
 		{24B8BA0E-A2B0-42CB-818F-116B326EBA27}.Release|x86.ActiveCfg = Release|Any CPU
 		{24B8BA0E-A2B0-42CB-818F-116B326EBA27}.Release|x86.Build.0 = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|x64.Build.0 = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Debug|x86.Build.0 = Debug|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|x64.ActiveCfg = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|x64.Build.0 = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{3932B162-7C57-465B-B9DD-FE2AD497CE3F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
