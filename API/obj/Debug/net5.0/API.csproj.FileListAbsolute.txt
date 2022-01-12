@@ -35,3 +35,4 @@ D:\Archives\Prog\C#\Chest\API\bin\Debug\net5.0\BCrypt.Net-Next.dll
 D:\Archives\Prog\C#\Chest\API\bin\Debug\net5.0\Core.dll
 D:\Archives\Prog\C#\Chest\API\bin\Debug\net5.0\Core.pdb
 D:\Archives\Prog\C#\Chest\API\bin\Debug\net5.0\passwords.json
+D:\Archives\Prog\C#\Chest\API\bin\Debug\net5.0\accounts.json

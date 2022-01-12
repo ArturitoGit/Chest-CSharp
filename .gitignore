@@ -3,7 +3,7 @@
 .vscode
 Core/bin
 Core/obj
-UI/bin
-UI/obj
+API/bin
+API/obj
 Tests/bin
 Tests/obj
