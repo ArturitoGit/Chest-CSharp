@@ -1,15 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Chest.Core.DependencyInjection;
 using Chest.Core.Infrastructure;
 using Core.Domain.Accounts.Services;
 using Core.Domain.Crypto.Services;
-using Core.Domain.Generator.Pipelines;
 using Core.Domain.PasswordHash.Services;
-using Core.Domain.Session.Services;
 using static Chest.Core.DependencyInjection.Service;
 
 namespace Core.Domain.Accounts.Pipelines
@@ -28,26 +24,26 @@ namespace Core.Domain.Accounts.Pipelines
         public class Handler : IRequestHandler<Request, Result>
         {
             private readonly IAccountProvider _accountProvider ;
+            private readonly ICryptoAgent _cryptoAgent;
             private readonly IPasswordHashProvider _passwordHashProvider ;
             private readonly IPasswordChecker _passwordChecker ;
             private readonly ICollection<IValidator<RegisterAccount.Request>> _requestValidators;
             private readonly ICollection<IValidator<ChestAccount>> _accountValidators;
-            private readonly ICryptoAgent _cryptoAgent;
 
             public Handler (
                 IAccountProvider accountProvider,
+                ICryptoAgent cryptoAgent,
                 IPasswordHashProvider passwordHashProvider,
                 IPasswordChecker passwordChecker,
                 ICollection<IValidator<RegisterAccount.Request>> requestValidators,
-                ICollection<IValidator<ChestAccount>> accountValidators,
-                ICryptoAgent cryptoAgent)
+                ICollection<IValidator<ChestAccount>> accountValidators)
             {
                 _accountProvider = accountProvider ?? throw new ArgumentNullException(nameof(accountProvider));
+                _cryptoAgent = cryptoAgent ?? throw new ArgumentNullException(nameof(cryptoAgent));
                 _passwordHashProvider = passwordHashProvider ?? throw new ArgumentNullException(nameof(passwordHashProvider));
                 _passwordChecker = passwordChecker ?? throw new ArgumentNullException(nameof(passwordChecker));
                 _requestValidators = requestValidators ?? throw new ArgumentNullException(nameof(requestValidators));
                 _accountValidators = accountValidators ?? throw new ArgumentNullException(nameof(accountValidators));
-                _cryptoAgent = cryptoAgent ?? throw new ArgumentNullException(nameof(cryptoAgent));
             }
 
             public async Task<Result> Handle(Request request)

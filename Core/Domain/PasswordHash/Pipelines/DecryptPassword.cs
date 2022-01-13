@@ -1,43 +1,43 @@
 using System.Threading.Tasks;
 using Core.Domain.Accounts ;
 using Core.Domain.Crypto.Services;
-using Core.Domain.Session.Services;
+using Core.Domain.PasswordHash.Services;
 using static Chest.Core.DependencyInjection.Service;
 
 namespace Core.Domain.PasswordHash.Pipelines
 {
     public class DecryptPassword
     {
-        public record Request(ChestAccount Account) : IRequest<Result> { }
-        public record Result(bool Success, string ClearPassword) : IResult { }
+        public record Request(string GlobalPassword, ChestAccount Account) : IRequest<Result> { }
+        public record Result(bool Success, string? ClearPassword) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
         {
             private readonly ICryptoAgent _cryptoAgent;
-            private readonly IChestSessionProvider _sessionProvider;
+            private readonly IPasswordHashProvider _pwdProvider ;
+            private readonly IPasswordChecker _pwdChecker ;
 
-            public Handler(ICryptoAgent cryptoAgent, IChestSessionProvider sessionProvider)
+            public Handler(ICryptoAgent cryptoAgent, IPasswordHashProvider pwdProvider, IPasswordChecker pwdChecker)
             {
                 _cryptoAgent = cryptoAgent ?? throw new System.ArgumentNullException(nameof(cryptoAgent));
-                _sessionProvider = sessionProvider ?? throw new System.ArgumentNullException(nameof(sessionProvider));
+                _pwdProvider = pwdProvider ?? throw new System.ArgumentNullException(nameof(pwdProvider)) ;
+                _pwdChecker = pwdChecker ?? throw new System.ArgumentNullException(nameof(pwdChecker)) ;
             }
 
-            public Task<Result> Handle(Request request)
+            public async Task<Result> Handle(Request request)
             {
+                // Check the password
+                var isPasswordCorrect = await _pwdChecker.IsPasswordCorrect(request.GlobalPassword, _pwdProvider, _cryptoAgent) ;
+                if (!isPasswordCorrect) return new Result(false, null ) ;
 
-                // Get the session password
-                var session = _sessionProvider.GetSession() ;
-                if (!session.IsOpen) return Task.FromResult(new Result( false, string.Empty )) ;
-
-                return Task.FromResult(
-                    new Result(
-                        true,
-                        _cryptoAgent.Decrypt(
-                            request.Account.HashedPassword,
-                            request.Account.IV,
-                            session.Password!,
-                            request.Account.Salt
-                )));
+                return new Result(
+                    true,
+                    _cryptoAgent.Decrypt(
+                        request.Account.HashedPassword,
+                        request.Account.IV,
+                        request.GlobalPassword,
+                        request.Account.Salt
+                ));
             }
         }
     }
