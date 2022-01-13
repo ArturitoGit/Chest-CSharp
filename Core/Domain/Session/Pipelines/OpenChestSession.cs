@@ -43,7 +43,7 @@ namespace Core.Domain.Session.Pipelines
                 }
 
                 // Check if the given password is correct
-                var validPassword = await _passwordChecker.IsPasswordCorrect(request.Password) ;
+                var validPassword = await _passwordChecker.IsPasswordCorrect(request.Password, _passwordProvider, _cryptoAgent) ;
                 var session = _sessionProvider.GetSession() ;
 
                 // If the password is not valid

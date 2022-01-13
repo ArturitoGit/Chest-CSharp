@@ -47,7 +47,7 @@ namespace Core.Domain.PasswordHash.Pipelines
                     var currentHash = await _pwdProvider.GetPasswordHash();
 
                     // Check that the given old password is the right one
-                    var valid_password = await _passwordChecker.IsPasswordCorrect(request.OldPassword) ;
+                    var valid_password = await _passwordChecker.IsPasswordCorrect(request.OldPassword, _pwdProvider, _cryptoAgent) ;
 
                     // If the password is not valid cancel the operation
                     if (!valid_password) return new Result(false);

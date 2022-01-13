@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Chest.Core.DependencyInjection;
 using Chest.Core.Infrastructure;
 using Core.Domain.Accounts.Services;
 using Core.Domain.Crypto.Services;
+using Core.Domain.PasswordHash.Services;
 using Core.Domain.Session.Services;
 using static Chest.Core.DependencyInjection.Service;
 
@@ -12,6 +12,7 @@ namespace Core.Domain.Accounts.Pipelines
     public class RegisterAccount
     {
         public record Request(
+            string GlobalPassword,
             string Name,
             string AccountClearPassword,
             string? Link,
@@ -21,21 +22,24 @@ namespace Core.Domain.Accounts.Pipelines
         public class Handler : IRequestHandler<Request, Result>
         {
             private readonly ICryptoAgent _cryptoAgent;
-            private readonly IAccountProvider _accountProvider;
-            private readonly IChestSessionProvider _sessionProvider;
+            private readonly IAccountProvider _accountProvider ;
+            private readonly IPasswordHashProvider _passwordProvider ;
+            private readonly IPasswordChecker _passwordChecker ;
             private readonly ICollection<IValidator<ChestAccount>> _accountValidators;
             private readonly ICollection<IValidator<Request>> _requestValidators;
 
             public Handler(
                 ICryptoAgent cryptoAgent,
                 IAccountProvider accountProvider,
-                IChestSessionProvider sessionProvider,
+                IPasswordHashProvider passwordProvider,
+                IPasswordChecker passwordChecker,
                 ICollection<IValidator<ChestAccount>> accountValidators,
                 ICollection<IValidator<Request>> requestValidators)
             {
                 _cryptoAgent = cryptoAgent ?? throw new System.ArgumentNullException(nameof(cryptoAgent));
                 _accountProvider = accountProvider ?? throw new System.ArgumentNullException(nameof(accountProvider));
-                _sessionProvider = sessionProvider ?? throw new System.ArgumentNullException(nameof(sessionProvider));
+                _passwordProvider = passwordProvider ?? throw new System.ArgumentNullException(nameof(passwordProvider));
+                _passwordChecker = passwordChecker ?? throw new System.ArgumentException(nameof(passwordChecker)) ;
                 _accountValidators = accountValidators ?? throw new System.ArgumentNullException(nameof(accountValidators));
                 _requestValidators = requestValidators ?? throw new System.ArgumentNullException(nameof(requestValidators));
             }
@@ -44,6 +48,10 @@ namespace Core.Domain.Accounts.Pipelines
 
             public async Task<Result> Handle(Request request)
             {
+                // Check if the global password is correct
+                var isPasswordCorrect = await _passwordChecker.IsPasswordCorrect(request.GlobalPassword, _passwordProvider, _cryptoAgent) ;
+                if (!isPasswordCorrect) return new Result(false, new string[] { "Wrong password" }) ;
+
                 // Check that the request parameters are corrects
                 var (isRequestValid, requestErrors) = Validator.Validate(_requestValidators, request);
                 if (!isRequestValid) return new Result(false, requestErrors);
@@ -51,14 +59,10 @@ namespace Core.Domain.Accounts.Pipelines
                 // Get a random salt
                 var salt = _cryptoAgent.GenerateSalt();
 
-                // Get the session password
-                var session = _sessionProvider.GetSession() ;
-                if (!session.IsOpen) return new Result( false, new string[] { "Chest closed" } ) ;
-
                 // Use the generated salt to encrypt the password
                 var (encrypted_password, iv) = _cryptoAgent.Encrypt(
                     request.AccountClearPassword,
-                    session.Password!,
+                    request.GlobalPassword,
                     salt
                 );
 
