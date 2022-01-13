@@ -13,14 +13,12 @@ namespace Core.Domain.PasswordHash.Pipelines
 {
     public class SetPassword
     {
-        public record Request(string OldPassword, string NewPassword) : IRequest<Result> {
-            public Request (string NewPassword) : this (string.Empty, NewPassword) {}
-        }
+        public record Request(string OldPassword, string NewPassword) : IRequest<Result> {}
         public record Result(bool Success) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
         {
-            private IAccountProvider _accountProvider;
+            private readonly IAccountProvider _accountProvider;
             private readonly IPasswordHashProvider _pwdProvider;
             private readonly ICryptoAgent _cryptoAgent;
             private readonly IPasswordChecker _passwordChecker;

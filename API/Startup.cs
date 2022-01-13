@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 using static Chest.Core.DependencyInjection.ServiceCollection ;
@@ -19,7 +12,6 @@ using Core.Domain.PasswordHash.Services;
 using Core.Domain.PasswordHash;
 using Core.Domain.Accounts;
 using Core.Domain.Crypto;
-using Core.Domain.PasswordHash.Pipelines;
 
 namespace API
 {
@@ -41,6 +33,9 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

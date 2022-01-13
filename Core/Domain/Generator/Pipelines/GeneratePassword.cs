@@ -23,10 +23,7 @@ namespace Core.Domain.Generator.Pipelines
             bool UseSymbols,
             string[] ForcedSubsets
         ) : IRequest<Result>
-        {
-            public Request(int length) : this(length, true, true, true, true, new string[] { }) { }
-            public Request(int length, string[] forcedSubsets) : this(length, true, true, true, true, forcedSubsets) { }
-        };
+        {};
 
         public record Result(string Password) : IResult { };
 
