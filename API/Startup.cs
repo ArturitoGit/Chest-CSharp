@@ -16,8 +16,6 @@ using static Chest.Core.DependencyInjection.ServiceCollection ;
 using Core.Domain.Crypto.Services;
 using Core.Domain.Accounts.Services;
 using Core.Domain.PasswordHash.Services;
-using Core.Domain.Session.Services;
-using Core.Domain.Session;
 using Core.Domain.PasswordHash;
 using Core.Domain.Accounts;
 using Core.Domain.Crypto;
@@ -71,10 +69,7 @@ namespace API
             GetInstance().RegisterScope<ICryptoAgent, CryptoAgent>();
             GetInstance().RegisterScope<IAccountProvider, AccountProvider>();
             GetInstance().RegisterScope<IPasswordHashProvider, PasswordHashProvider>();
-            GetInstance().RegisterScope<IChestSessionProvider, ChestSessionProvider>();
             GetInstance().RegisterScope<IPasswordChecker, PasswordChecker>();
-
-            // Password is now Jordy
         }
     }
 }

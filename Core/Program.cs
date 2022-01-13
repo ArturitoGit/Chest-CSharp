@@ -14,8 +14,6 @@ using Core.Domain.Crypto.Services;
 using Core.Domain.PasswordHash;
 using Core.Domain.PasswordHash.Pipelines;
 using Core.Domain.PasswordHash.Services;
-using Core.Domain.Session;
-using Core.Domain.Session.Services;
 using static Chest.Core.DependencyInjection.Service;
 using static Core.Domain.Accounts.Pipelines.RegisterAccount;
 

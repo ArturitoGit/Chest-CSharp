@@ -4,7 +4,6 @@ using Chest.Core.Infrastructure;
 using Core.Domain.Accounts.Services;
 using Core.Domain.Crypto.Services;
 using Core.Domain.PasswordHash.Services;
-using Core.Domain.Session.Services;
 using static Chest.Core.DependencyInjection.Service;
 
 namespace Core.Domain.Accounts.Pipelines
