@@ -19,7 +19,7 @@ namespace Core.Domain.Accounts.Pipelines
             string AccountClearPassword,
             string? Link,
             string? Username) : IRequest<Result> { }
-        public record Result(bool Success, string[] Errors) : IResult { }
+        public record Result(bool Success, ChestAccount? account, string[] Errors) : IResult { }
 
         public class Handler : IRequestHandler<Request, Result>
         {
@@ -50,7 +50,7 @@ namespace Core.Domain.Accounts.Pipelines
             {
                 // Check the password
                 var isPasswordCorrect = await _passwordChecker.IsPasswordCorrect(request.GlobalPassword, _passwordHashProvider, _cryptoAgent) ;
-                if (!isPasswordCorrect) return new Result(false, new string[] { "Wrong password" }) ;
+                if (!isPasswordCorrect) return new Result(false, null, new string[] { "Wrong password" }) ;
 
                 // Use the registerAccount validators to validate the request
                 var newAccountRequest = new RegisterAccount.Request(
@@ -61,7 +61,7 @@ namespace Core.Domain.Accounts.Pipelines
                     request.Username
                 );
                 var (isRequestValid, requestErrors) = Validator.Validate(_requestValidators, newAccountRequest);
-                if (!isRequestValid) return new Result(false, requestErrors);
+                if (!isRequestValid) return new Result(false, null, requestErrors);
 
                 // Get a random salt
                 var salt = _cryptoAgent.GenerateSalt();
@@ -88,12 +88,12 @@ namespace Core.Domain.Accounts.Pipelines
 
                 // Use the accountvalidators
                 var validatorsResult = Validator.Validate<ChestAccount>(_accountValidators, account);
-                if (!validatorsResult.IsValid) return new Result(false, validatorsResult.Errors);
+                if (!validatorsResult.IsValid) return new Result(false, null, validatorsResult.Errors);
 
                 // Update the account in the database
                 await _accountProvider.UpdateAccount(account);
 
-                return new Result(true, new string[] { });
+                return new Result(true, account, new string[] { });
             }
         }
     }
