@@ -30,7 +30,7 @@ namespace Tests.Domain.Account.Pipelines
 
             // Setup global password
             new SetPassword.Handler(_accountProvider,_pwdProvider, _cryptoAgent, _pwdChecker)
-                .Handle(new SetPassword.Request(GLOBAL_PASSWORD)).GetAwaiter().GetResult() ;
+                .Handle(new SetPassword.Request("", GLOBAL_PASSWORD)).GetAwaiter().GetResult() ;
         }
 
         [Fact]

@@ -47,7 +47,7 @@ namespace Tests.Domain.Session.Pipelines
             var clearPassword = "right password will you find it";
 
             // Send the request to set the password
-            var request = new Request(clearPassword);
+            var request = new Request("", clearPassword);
             _handler.Handle(request).GetAwaiter().GetResult();
 
             // Get the registered password
@@ -62,7 +62,7 @@ namespace Tests.Domain.Session.Pipelines
             var newClearPassword = "new password !";
 
             // Set a first password
-            var request1 = new Request(previousClearPassword);
+            var request1 = new Request("", previousClearPassword);
             _handler.Handle(request1).GetAwaiter().GetResult();
 
             // Change the password
@@ -83,7 +83,7 @@ namespace Tests.Domain.Session.Pipelines
             var newClearPassword = "new password !";
 
             // Set a first password
-            var request1 = new Request(previousClearPassword);
+            var request1 = new Request("", previousClearPassword);
             _handler.Handle(request1).GetAwaiter().GetResult();
 
             // Try to change it with a wrong argument
@@ -105,7 +105,7 @@ namespace Tests.Domain.Session.Pipelines
             var newClearPassword = "new password !";
 
             // Set a first password
-            var request1 = new Request(previousClearPassword);
+            var request1 = new Request("", previousClearPassword);
             _handler.Handle(request1).GetAwaiter().GetResult();
 
             var requestValidators = new List<IValidator<RegisterAccount.Request>>() ; 
